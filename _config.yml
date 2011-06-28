@@ -1,8 +1,8 @@
 # MUST EDIT BELOW
-sitename: the_minimum       #Your site title
-tagline: themes for jekyll  #You should always have a tagline
-url: http://your.site.com   #URL Please
-ga: UA-XXXXX-X              #Google Analytics ID
+sitename: Thruput       #Your site title
+tagline: Qasim Zaidi   #You should always have a tagline
+url: http://qzaidi.github.com/   #URL Please
+ga: UA-566085-5 #Google Analytics ID
 sitemap: GOOGLEWEBMASTER    #Google webmaster verification code
 # END
 # CHOOSE YOUR PREFERENCE
