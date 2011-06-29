@@ -18,6 +18,7 @@
 				<article class="the_article">
 				<div class="article_inner">
 					<div class="content">{{ content }}</div>
+					{% include disqus.html %}
 				</div>
 				</article>
 			</div>
@@ -32,7 +33,9 @@
 		{% endif %}
 		</ul>
 		</nav>
+		<div>
 		{% include footer.html %}
+		</div>
 	</div><!-- id="page" -->
 	{% include system_foot.html %}
 </body>
