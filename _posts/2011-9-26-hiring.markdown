@@ -1,0 +1,34 @@
+---
+layout: post
+style: text
+title: We are hiring.
+---
+
+At Urbantouch, we are building the next generation e-commerce platform that scales to tens of thousands of orders a day, is insanely fast, and makes the overall online shopping experience a breeze, so brick and mortar stores finally become a thing of past. We are looking for exceptional programmers who can write code, and write it well (there would not be a QA team to fall back on). We don't intend to do anything twice, we expect you to tinker; we expect you to be the best. Our backend will be using *node.js* + mysql, our frontend will be built in *javascript*/jquery/html5, we need programmers who can think async, can code in callbacks, would test their own code and can wear multiple hats.
+
+*A cross discipline mindset is a must.*
+
+You should be
+ * Hands on with code in either of C, C++, Java, *Javascript*, Ruby, Python. Multi-programming-lingual. The more the merrier.
+ * Comfortable working in a \*nix environment.
+ * Eager to learn new tools, techniques, languages, and technologies.
+ * Passionate about making a difference to the world.
+ * Able to contribute to system architecture and design.
+ * Able to debug non-trivial application code.
+ * Able to write clear, concise source-code documentation, unit and integration tests.
+ * Able to think beyond code to architecture and user experience.
+ * Able to communicate and coordinate within a team.
+
+Nice but not required:
+ * B.Tech in CS, with strong product development experience.
+ * Prior experience with e-commerce or web application development.
+ * Contributions to open-source projects.
+ * Understanding of scope, closures, callbacks, prototypical inheritance, and asynchronous programming techniques.
+ * Experience with node.js or core javascript (beyond form validation).
+ * Experience with mysql and/or nosql databases, memcached, nginx.
+ * Experience with dynamic languages (Python, Ruby).
+ * Experience with git.
+ * Familiarity with unit testing, integration testing, and test-driven development.
+ * Experience with HTML5, CSS, JQuery, Bootstrap etc.
+
+If you fit the bill and are interested, write to us at <jobs@urbantouch.com> with *Tech* in the subject line. Work experience is not a must - freshers with an exceptional track record can apply as well.
