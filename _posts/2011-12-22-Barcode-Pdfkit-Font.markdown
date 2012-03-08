@@ -24,4 +24,4 @@ ttx fre3of9x.ttx  # regenerates fre3of9x.ttf as fre3of9#1.ttf, which works with 
 
 {% endhighlight %}
 
-TODO: update this post with a link to the regenerated fonts.
+Update: Here's a link to download the modified font: <a href="/img/f39.ttf">Free of 39 Modified Font </a>
