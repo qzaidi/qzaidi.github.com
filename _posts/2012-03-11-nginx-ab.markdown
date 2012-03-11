@@ -1,0 +1,39 @@
+---
+layout: post
+style: text
+title: Using nginx for A/B testing
+---
+
+You have spent months on a big rewrite, cleaning up the mess. Or maybe you are replacing an existing website, but want to test the new version on a handful of users, to iron out the bugs or for just gathering feedback. So how to test the two versions in parallel, and see which one works?
+
+Obviously, you need to use a load balancer that can forward traffic to the right backend. The balancer should allow controlling how much traffic goes to which backend (trust me, you would want to start with not more than 5% of the traffic going to the new backend), and the balancer should be sticky, so users don't keep juggling between the old and the new version. This sort of stickiness should not be IP based, because IPs can change every half an hour with some ISPs.
+
+In other words, the load balancer should support asymmetric load and session persistence. If you paid attention to the title of this post, you don't need to guess that I am talking about using nginx to do this. Without further ado, here's my nginx configuration.
+
+<script src="https://gist.github.com/2014466.js"> </script>
+
+For those uninitiated in the art of nginx, here's a quick explanation. The new backend is required to set a cookie named backend, with a value experimental, which we will use to implement session persistence for users going to the new backend. Most backends do setup a cookie of their own for session tracking anyway (like connect's connect.sid cookie), and you could get along with that as well - but I am just keeping things simple.
+
+Our existing, jurassic age backend runs on port 8080, and the shiny new stuff runs on port 8888, on the same box. I define a round robin backend first, which is essentially my asymmetric load config. By specifying weight = 3 for the old backend, I am stipulating that 75% (3/(3+1)) of the traffic should go to the old backend.
+
+    upstream rrbackend {
+            server          127.0.0.1:8080 weight=3;
+            server          127.0.0.1:8888;
+    }
+
+Then, there are 2 maps that are defined. A map in nginx maps the value of a variable based on a key, and is highly preferable over writing an if. The first map, based on the value of a cookie named, 'backend', sets the $backend variable to either the old backend, or the new, round robin backend we just defined. Incoming cookies are available using $cookie_{cookiename} syntax in nginx, which makes this awesomeness possible.
+
+    map  $cookie_backend   $backend {
+          default         rrbackend;
+          experimental    127.0.0.1:888;
+    }
+
+The 'default' over here is to catch the case when no cookies are set. This is the map we use for switching. Essentially, for users who have the backend = experimental cookie set, they will always be sent to the experimental backend, but for those without this cookie, we use the $rrbackend to make a decision (75-25 split). Now look at the first location directive in the config - this is telling nginx to switch homepage visitors based on the logic I just described.
+
+    location = / {
+                    proxy_pass              http://$backend;
+                 }
+
+For users who directly land to a page other than homepage, I just don't want to do any switching. This is because urls valid on the old backend may return 404 on the new one (and vice versa) , so if a user directly accesses the url, I will just send them to the old backend, unless they have the experimental cookie set, in which case they go to the new backend. The second map is for these users, and a corresponding location directive that matches everything other than homepage.
+
+Now this is simple. And awesome, because, look ma, we didn't use any if statements.
