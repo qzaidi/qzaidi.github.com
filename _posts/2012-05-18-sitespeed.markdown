@@ -6,11 +6,13 @@ title: Site Speed - How fast is fast enough
 
 Its almost a cliche to say that if your site isn't fast enough, you are losing money on the table. At Urbantouch.com, we take this to heart though, and it was a design goal for us to build something that is blazingly fast, and that scales well. 
 
-When running on the magento platform, one perennial complaint we used to hear was about the site being too slow. Slight increases in traffic would require increasing our EC2 Capacity, look for newer performance hacks like nginx micro-caching or client side javascript optimisations, and yet, at the end of it, we would have the same problem at hands. There is only so much you can do if you are starting with something like magento .For all its feature richness, magento trades off site speed and performance for flexibility and features.
+When running on the magento platform, one perennial complaint was that the site was slow. Slight increases in traffic would force us to increase our EC2 Capacity, look for newer performance hacks like nginx micro-caching or client side javascript optimisations, and yet, at the end of it, we would have the same problem at hands. There is only so much you can do if you are starting with something like magento .For all its feature richness, magento trades off site speed and performance for flexibility and features.
 
 Fast forward to April. On 5th of April, we launched our home grown e-commerce platform to visitors. On 19th of the same month, we switched our entire backend (Account Management, Order Management, Customer Management & Logistics) to the new platform. It has been a month since, the right time to reflect and see how it went. Here is what Alexa has to say.
 
+<a href="http://www.alexa.com/siteinfo/urbantouch.com#">
 ![Urbantouch.com](/img/urbantouch.gif "Urbantouch.com site speed")
+</a>
 
 For a comparison, here is how our competitors do.
 
