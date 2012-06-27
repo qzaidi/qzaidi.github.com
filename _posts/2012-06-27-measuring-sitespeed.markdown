@@ -19,9 +19,11 @@ The catch:  This is a manual process, and that very much depends on how represen
 
 Google Analytics is very handy when it comes to measuring page load times. There are a couple of reports under Content->Site Speed with some really useful information. For example, you can examine individual page load times and also the breakdown. Site speed is not one metric after all. There is DNS lookup time, time to first byte (Avg. Server Response Time), Page Download time, DOM load time, and so on.
 
-If you are depending on GA, here's a word of advice. While the numbers broadly look correct, Google's measurement is not very scientific or accurate over shorter periods of time. Its important to estimate that Google uses sampling. Nothing against it, but the sample is drawn only from modern browsers which support timing measurements (Performance Timing Interface), and this makes it a little bit unrepresentative.
+If you are depending on GA, here's a word of advice. While the numbers broadly look correct, Google's measurement is not very scientific or accurate over shorter periods of time. Its important to know that Google uses sampling, and a very small percentage of impressions are used, as only modern browsers supporting timing measurements are used for this. This makes it very unreliable for me. As an illustration, here's our page load speeds for homepage, on google's browser (chrome). Just look at how wildly this thing is varying.
 
-Also, its important to understand the difference between first load time and warmed up load time. Once the cache has been primed, the site should really load fast. If it won't, you need to relook at your caching strategy. Fortunately, Google allows you to do this - just view the load times by New User vs Returning measure to get an idea of how well you are using browser cache.
+![http://google.com/analytics](/img/ga-bug.png "Don't trust google")
+
+Also, its important to understand the difference between first page load time and subsequent load times. Once the cache has been primed, the site should really load fast. If it won't, you need to relook at your caching strategy. Fortunately, Google allows you to do this - just view the load times by New User vs Returning measure to get an idea of how well you are using browser cache.
 
 [Google Analytics](http://google.com/analytics)
 
@@ -39,6 +41,9 @@ Similar to pingdom, this one was originally developed by AOL, and is now open-so
 
 ## Google Webmaster Tools/Alexa
 Both Alexa and Google have a toolbar that they use to collect information on page load times, and if your site has decent traffic, this is an option. I have only used Alexa, and have found the toolbar approach more accurate than the sampling one, and I suppose the same may hold true of webmaster tools.
+
+## GtMetrix
+[Gtmetrix](http://gtmetrix.com) is something I discovered only recently, but if I have to recommend one tool out there that is the best, it is this. It offers you the recommendations/scores from Google Pagespeed and YSlow at one place, is way more usable, much faster than webpagetest.org, allows periodic monitoring on the free plan, and supports history/multiple locations/comparisons. Its free plan has features that beat some of the paid offerings in this space.
 
 ## Roll out your own
 If you are really serious about fast page loading, I recommend that you use your own measurement scripts in addition to the above. If you have a local server, setup a script that measures how long it takes. Beyond using curl/wget, you can use headless browser testing tools to measure how long the site would load in a real browser. I would strongly recommend phantomjs(http://phantomjs.org). It comes with built in examples showing not only page load times, but also the full HAR. If you are wondering what HAR is, its an industry accepted standard (stands for HTTP Archive Specification) that shows you the full HTTP waterfall (all components on the page, including css, js and images), and is very helpful in understanding what is slowing you down. In the next episode of this post, I will focus on how you can use phantomjs and HAR, and maybe discuss a hack or two on how to speed things up without a lot of work.
