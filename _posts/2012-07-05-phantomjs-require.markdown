@@ -28,8 +28,8 @@ Well, the feature is there if you care to RTFM. It is called injectJs. You will 
 
 ```
 var page = require('webpage').create();
-...
-...
+
+
 phantom.injectJs('./test.js');
 ```
 
@@ -76,23 +76,18 @@ The other one is netsniff.js, which lets us create an HAR, that can then be view
 
 ```
 function signup(next) {
-...
 }
 
 function addToCart(next) {
-...
 }
 
 function checkout(next) {
-...
 }
 
 function makePayment(next) {
-...
 }
 
 function logout(next) {
-...
 }
 
 function router() {
