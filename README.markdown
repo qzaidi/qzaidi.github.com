@@ -1,3 +1,6 @@
+
+This is my personal blog at Github.
+
 * Theme Name: the\_minimum
 * Description: A minimumlist theme for [jekyll](https://github.com/mojombo/jekyll).
 * Author: Yuya Saito @ [\_layout](http://www.layouts-the.me/)

@@ -8,14 +8,14 @@ title: Phantomjs, headless scripting and code reuse
 
 Phantomjs scripts look deceptively similar to node.js, but it is not node.js. When using it for testing, I missed the ability to create and require modules of my own. After all, regular phantom code looks like this.
 
-{% highlight javascript %}
+{% highlight javascript%}
 var page = require('webpage').create();
 var system = require('system');
 {% endhighlight %}
 
-However, requiring a module of your own returns a weird error.
+However, requiring a module of your own throws a weird error.
 
-{% highlight bash %}
+{% highlight bash%}
 $phantomjs
 phantomjs> var x = require('./test')
 Unknown module ./test for require()
@@ -25,14 +25,14 @@ Unknown module ./test for require()
 
 Well, the feature is there if you care to RTFM. It is called injectJs. You will see examples of injectJs being used with the page object, but this method also exists in phantom. So to really include test, you have to do this
 
-{% highlight javascript %}
+{% highlight javascript%}
 var page = require('webpage').create();
 phantom.injectJs('./test.js');
 {% endhighlight %}
 
 Unlike node, there is no exports object, and every global in test.js is available. That shouldn't be any problem, because you can declare everything inside a function and then export what you need.
 
-{% highlight javascript %}
+{% highlight javascript%}
 var util = (function() {
 
   var privatevar;
@@ -41,8 +41,8 @@ var util = (function() {
    ...
   }
  
-  return {
-    publicfn1: function() \{
+    return {
+      publicfn1: function() \{
       ...
     },
 
@@ -66,13 +66,18 @@ Now this is a very simple example that loads a webpage, timing the start and the
 
 <script src="https://gist.github.com/2993032.js"> </script>
 
-{% highlight javascript %}
+{% highlight javascript%}
 phantomjs loadloop.js http://www.urbantouch.com
 {% endhighlight %}
 
-The other one is netsniff.js, which lets us create an HAR, that can then be viewed using HTTPViewer on any web based [HAR viewer](http://softwareishard.com/har/viewer/). Beyond these examples, I have found it very useful to write regression tests that can run prior to every release. The signup, login, add to cart and place order flow looks like this.
+The other one is netsniff.js, which lets us create an HAR, that can then be viewed using HTTPViewer on any web based [HAR viewer](http://softwareishard.com/har/viewer/). If this stuff interests you, I would also suggest checking out [confess.js](https://github.com/jamesgpearce/confess).
 
-{% highlight javascript %}
+Beyond these examples, I have found it very useful to write regression tests that can run prior to every release. For an ecommerce website like ours, we have a test case to test the signup, add to cart , place order flow that looks like this.
+
+{% highlight javascript%}
+
+phantom.injectJs('./util.js');
+
 function signup(next) {
 }
 
@@ -88,7 +93,16 @@ function makePayment(next) {
 function logout(next) {
 }
 
-function router() {
+util.router(signup,addToCart,checkout,makePayment,logout);
+{% endhighlight %}
+
+
+The router code is inspired by the router in [Express](http://expressjs.com), and allows us to avoid callback hell.
+
+{% highlight javascript%}
+var util = (function() {
+  return { 
+  router: function() {
   var routes = [].splice.call(arguments,0);
 
   (function pass(i) {
@@ -101,9 +115,10 @@ function router() {
     else
       phantom.exit();
   })(0);
-}
-
-router(signup,addToCart,checkout,makePayment,logout);
+  }
+}());
 {% endhighlight %}
 
-The router code is inspired by the router in Express. Along with a liberal use of phantom.injectJs to abstract common functionality, this helps us keep the code readable and avoid callback hell in phantomjs scripts. This is it - a brief introduction to phantomjs that will get you started, and as in my case, get you hooked.
+Running it on every deployment, we maintain our sanity and make sure the critical flows are still intact. This is necessary when you want to run real fast and do 2 deployments a day.
+
+This is it - a brief introduction to phantomjs that will get you started, and maybe as in my case, get you hooked.
