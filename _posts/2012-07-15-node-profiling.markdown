@@ -4,11 +4,11 @@ style: text
 title: Profiling node apps
 ---
 
-We recently had a problem with our node.js app. It was leaking memory. Not that this problem was biting us or anything. With a daily deployment cycle, we end up restarting every day and this would mask such issues. Fortunately, there are weekends and we don't do releases on weekends (mostly, because there are exceptions when the weekend is the best day for a release, and we aren't fanatic about sabbath either). The alarming memory growth on the weekend as evident in this chart alerted us there may be a problem.
+We recently had a problem with our node.js app. It was leaking memory. Not that this problem was biting us or anything. With a daily deployment cycle, we end up restarting every day and this would mask such issues. Fortunately, there are weekends and we don't do releases on weekends mostly (there are exceptions when the weekend is the best day for a release, and we aren't fanatical about resting on sabbath in those cases). The alarming memory growth on the weekend as evident in this chart alerted us there may be a problem.
 
 ![amon.cx](/img/memory.png "Up and Up it went")
 
-There are a few lessons I have learnt in all those years pounding on the keyboard. One of them is this. Like the canary in the coal mine, bugs will often manifest in a subtle way, but if you chose to ignore them because you were busy working on something else, they will come back like a malignant tumor and take you down. Its always better to be paranoid and jump at the first warning signs. When it comes to bugs, catch them young, when you have only have a [snafu](http://www.urbandictionary.com/define.php?term=snafu), not when its a [fubar](http://www.urbandictionary.com/define.php?term=fubar) moment.
+There are a few lessons I have learnt in all those years pounding on the keyboard. One of them is this. Like the canary in the coal mine, bugs will often manifest in a subtle way, but if you chose to ignore them because you were busy working on something else, they will come back like a malignant tumor and take you down. Its always better to be paranoid and jump at the first warning signs. When it comes to bugs, catch them young, when you have only have a [snafu](http://www.urbandictionary.com/define.php?term=snafu), not waiting for a [fubar](http://www.urbandictionary.com/define.php?term=fubar) moment.
 
 Deciding not to ignore this one, I looked at some of the profiling options available for node. For this particular bug in question, going with the gut and doing a code review was what nailed it, but  in the process, I discovered some decent profiling options in node.js. This post is about connect's profiler, and subsequent ones will be about nodetime, v8 prof, dtrace and mdb based profiling.
 
