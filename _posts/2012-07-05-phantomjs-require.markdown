@@ -54,6 +54,45 @@ var util = (function() {
 }());
 {% endhighlight %}
 
+This is fine, however, there is one flaw. I still miss the node.js require, which allows me to use a different name for util, should there be a conflict.
+
+{% highlight javascript%}
+var myutils = require('util');
+{% endhighlight %}
+
+It seems we can write a require and make things look more natural (read node like). You can create a require.js with the following content
+
+{% highlight javascript%}
+"use strict";
+
+var phantom;
+var exports;
+
+var require = function(module) {
+  phantom.injectJs(module);
+  return exports;
+};
+{% endhighlight %}
+
+And then, change your module to always use the name exports, instead of util, like this
+
+{% highlight javascript%}
+
+var exports = (function() {
+  return {
+    publicfn1: function() {
+      ...
+    },
+
+    publicfn2: function() {
+      ...
+    }
+  };
+}());
+
+{% endhighlight %}
+
+And that's it. Now you can include require.js once using phantom.injectJs, and rest of the modules can then be imported using require.
 
 How do I use phantomjs? For one, there are 2 builtin examples that are usable out of the box. 
 
@@ -76,7 +115,9 @@ Beyond these examples, I have found it very useful to write regression tests tha
 
 {% highlight javascript%}
 
-phantom.injectJs('./util.js');
+phantom.injectJs('./inc/require.js');
+
+var util = require('util');
 
 function signup(next) {
 }
@@ -119,6 +160,6 @@ var util = (function() {
 }());
 {% endhighlight %}
 
-Running it on every deployment, we maintain our sanity and make sure the critical flows are still intact. This is necessary when you want to run real fast and do 2 deployments a day.
+Running phantomjs tests on every deployment, we maintain our sanity and make sure the critical flows are still intact. This is necessary when you want to run real fast and do multiple deployments a day. Quality of your code is ensured by the quality of your regression tests.
 
-This is it - a brief introduction to phantomjs that will get you started, and maybe as in my case, get you hooked.
+This is it - a brief introduction to phantomjs that should get you started, and maybe as in my case, get you hooked.
