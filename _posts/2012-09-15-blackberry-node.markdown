@@ -12,8 +12,11 @@ Back to the subject of this post. I came across the Ripple Simulator while tryin
 
 While trying to get it to run, I discovered that it uses node.js. It actually bundles node 0.5.4 (both mac and windows executables) in the .crx package. If you unzip the .crx package, inside the settings folder, you will discover a folder named node. Run the rbd service, and you will start seeing an option to build in chrome.
 
-  unzip ripple_ui.crx
-  cd services/node
-  ./node node_modules/rbd/app.js -start 9910
+{% highlight bash %}
+$ unzip ripple_ui.crx
+$ cd services/node
+$ ./node node_modules/rbd/app.js -start 9910
+{% endhighlight %}
+
 
 Node.js is surely going places. The subject of my next post - node.js on my Samsung TV ...
