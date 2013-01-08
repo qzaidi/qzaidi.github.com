@@ -12,15 +12,15 @@ Some of the best companies get caught with their pants down.  After all, there w
 
 Which got me thinking. How do the India Ecommerce companies stack up today?
 
-To be honest, no, that didn't get me thinking. I am pretty pissed of at Indiatimes shopping tonight. One of my orders was incorrectly fulfilled, and my complaint was closed without any update after about 10 days and 4 requests for updates. Staring at a Case log that looks something like this got me thinking.
+To be honest, no, that didn't get me thinking. I am pretty pissed off at Indiatimes shopping tonight. One of my orders was incorrectly fulfilled, and my complaint was closed without any update after about 10 days and 4 requests for updates. Staring at a Case log that looks something like this got me thinking.
 
-![shopping.indiatimes.com](/img/complaint.png "What got me thinking")
+![shopping.indiatimes.com](/img/complaint.png "What got me thinking?")
 
-In the URL bar, you can see there is a case id. What if I change the case Id? Can I view others cases. This is any crackers dream come true, and much has been written about new startups failing to put this validation in place, but Indiatimes shopping is no startup. Times of India Group is a heavyweight over here, and Indiatimes is probably the oldest ecommerce company in the country still around. So I tried, against hope, and surprise, surprise, for I was staring at someone else's case.
+In the URL bar, you can see there is a case id. What if I change the case Id? Can I view other peoples cases. This is any crackers dream come true, where all it takes is incrementing a query param. Much has been written about new startups failing to put this validation in place, but Indiatimes shopping is no startup. Times of India Group is a heavyweight over here, and Indiatimes is probably the oldest ecommerce company in the country still around. So I tried, against hope, and surprise, surprise, for I was staring at someone else's case.
 
 ![shopping.indiatimes.com](/img/moneyrefunded.png "Give this guy a refund.")
 
-Now thats interesting in itself. I can use this to estimate that there are roughly 2000 cases a day opened at IndiaTimes shopping. That in itself should speak for their legendary customer service.  However, other than the order id, and whatever details the user provided in the case (See in my case, I actually gave my phone number for a callback), there isn't much info to be found.
+Interesting. I can use this to estimate that there are roughly 2000 cases a day opened at IndiaTimes shopping. That in itself should speak for their legendary customer service.  However, other than the order id, and whatever details the user provided in the case (See in my case, I actually gave my phone number for a callback), there isn't much info to be found.
 
 Or is it? A few minutes of playing around, and I can tell you given an order id, what items compromised that order.
 
