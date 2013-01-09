@@ -26,7 +26,11 @@ Or is it? A few minutes of playing around, and I can tell you given an order id,
 
 ![shopping.indiatimes.com](/img/orderitems.png "I know what you ordered last summer.")
 
-Things just started to get interesting. It appears as if I can open a case on behalf of any party (read user). I am pretty sure another hour spent at this will get me more juice, from this apparently newly integrated case management system. But then, its now 2:00 AM in the midnight, and what is the point to be proven. Most of these websites pretty much show what they mean by Security via their login dialogues.
+Things just started to get interesting. It appears as if I can open a case on behalf of any party (read user). 
+
+![shopping.indiatimes.com](/img/createcase.png "Give me a refund.")
+
+I am pretty sure another hour spent at this will get me more juice, from this apparently newly integrated case management system. But then, its now 2:00 AM in the midnight, and what is the point to be proven. Most of these websites pretty much show what they mean by Security via their login dialogues.
 
 ![shopping.indiatimes.com](/img/securelogin.png "It can't get more secure than this")
 
