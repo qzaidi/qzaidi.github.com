@@ -8,9 +8,11 @@ tl;dr - Most web log analyzers are real time, which isn't great when you want to
 
 For real time log analysis, we use tools like apachetop or goaccess. They are very handy, because they give you some visibility into otherwise monotonous common log files, telling you about bandwidth used, request per seconds, and 4xx/5xx errors.
 
-One high traffic website I manage recently had a DOS attack. When this happens, nginx starts returning 502s because the upstream servers stop responding. Very soon, the domino effect cascades into a meltdown, as users retry when they see a not very helpful 502 page.
+One high traffic website I am involved with recently had a DOS attack. When this happened, nginx started returning 502s because the upstream servers stop responding. Very soon, the domino effect cascaded into a meltdown, as users retry and hit refresh when they see a not very helpful 502 page, putting even more load on the system.
 
-This forced me to write a quick and dirty script in nodejs, that reads from an existing log file and writes it back to another file. Because you control when you start playing the logs, real time analyzers like apachetop can then be run repeatedly to recreate a visual view of the problem as it occured sometime in the past. I cobbled up the script just now, and since it could come in handy for others, have just published it on github. 
+This forced me to write a quick and dirty script in nodejs, that reads from an existing log file and writes it back to another file, preserving the rate. Because you control when you start playing the logs, real time analyzers like apachetop can then be run on the new file to recreate a visual view of the problem as it occured sometime in the past. I cobbled up the script just now, and since it could come in handy for others, have just published it on github. 
+
+[ Fork logplayer on github] (http://github.com/qzaidi/logtailer)
 
 apachetop will report the time incorrectly, but the visual analysis is way more valuable than scanning the log file itself. I do realize that this is merely a player, and not analyzer as the title suggests , but if I get some free time, I plan to write apachetop itself in node.
 
