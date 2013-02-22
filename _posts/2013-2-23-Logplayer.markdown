@@ -12,7 +12,7 @@ One high traffic website I am involved with recently had a DOS attack. When this
 
 This forced me to write a quick and dirty script in nodejs, that reads from an existing log file and writes it back to another file, preserving the rate. Because you control when you start playing the logs, real time analyzers like apachetop can then be run on the new file to recreate a visual view of the problem as it occured sometime in the past. I cobbled up the script just now, and since it could come in handy for others, have just published it on github. 
 
-[ Fork logplayer on github] (http://github.com/qzaidi/logtailer)
+[ Fork logplayer on github] (http://github.com/qzaidi/logplayer)
 
 apachetop will report the time incorrectly, but the visual analysis is way more valuable than scanning the log file itself. I do realize that this is merely a player, and not analyzer as the title suggests , but if I get some free time, I plan to write apachetop itself in node.
 
