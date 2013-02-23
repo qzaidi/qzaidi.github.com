@@ -4,8 +4,12 @@ style: text
 title: logplayer, a non real time log analyzer
 ---
   
-tl;dr - Most web log analyzers are real time, which isn't great when you want to retrospectively analyze and debug 
-a problem. Thankfully, with a small script we can make them non realtime.
+  
+*** tl;dr - Most web log analyzers are real time, which isn't great when you want to retrospectively analyze and debug 
+a problem. Thankfully, with a small script we can make them non realtime. ***
+
+Non Real Time?
+--------------
 
 For real time log analysis, we use tools like apachetop or goaccess. They are very handy, because they give you some
 visibility into otherwise monotonous common log files, telling you about bandwidth used, request per seconds, and 4xx/5xx
@@ -26,7 +30,7 @@ apachetop will report the time incorrectly, but the visual analysis is way more 
 The script does little more than reading the logs from a certain time and writing them to another file at the same rate 
 they were originally written. But one day, maybe it can be extended to work with log.io 
 
-Here's more from the github readme ...
+More from the github readme ...
 
 logplayer
 ---------
