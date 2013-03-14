@@ -4,9 +4,8 @@ style: text
 title: logplayer, a non real time log analyzer
 ---
   
-  
-*** tl;dr - Most web log analyzers are real time, which isn't great when you want to retrospectively analyze and debug 
-a problem. Thankfully, with a small script we can make them non realtime. ***
+** tl;dr - Most web log analyzers are real time, which isn't great when you want to retrospectively analyze and debug 
+a problem. Thankfully, with a small script we can make them non realtime. **
 
 Non Real Time?
 --------------
@@ -17,7 +16,7 @@ One high traffic website I am involved with recently had a DOS attack. When this
 
 This forced me to write a quick and dirty script in nodejs, that reads from an existing log file and writes it back to another file, preserving the rate. Because you control when you start playing the logs, real time analyzers like apachetop can then be run on the new file to recreate a visual view of the problem as it occured sometime in the past.  Here's the script on github.
 
-[ logplayer on github] (http://github.com/qzaidi/logplayer)
+[logplayer on github] (http://github.com/qzaidi/logplayer)
 
 apachetop will report the time incorrectly, but the visual analysis is way more valuable than scanning the log file itself.  The script does little more than reading the logs from a certain time and writing them to another file at the same rate they were originally written. But one day, maybe it can be extended to work with log.io 
 
