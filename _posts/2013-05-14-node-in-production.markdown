@@ -24,7 +24,7 @@ author "one97"
 
 env APP_NAME=myserver
 env APP_HOME=/var/www/myserver/releases/current
-# Node Environment is production
+#Node Environment is production
 env NODE_ENV=production
 # User to run as
 env RUN_AS_USER=www-data
@@ -52,7 +52,7 @@ script
     exec /usr/local/bin/node bin/cluster app.js -u $RUN_AS_USER -l logs/$APP_NAME.out -e logs/$APP_NAME.err >> $APP_HOME/logs/upstart
 end script
 
-{% end highlight %}
+{% endhighlight %}
 
 The -u switch is to set the uid of the node process, and -l and -e redirect stdout/stderr to files. The redirection can also be done on command line, but that won't play well with logrotation.
 
@@ -64,14 +64,14 @@ Place that file in /etc/init, and then use start to start the proces.
 # status myserver
 
 # start myserver
-{% end highlight %}
+{% endhighlight %}
 
 To restart or stop
 {% highlight bash %}
 #restart myserver
 
 #stop myserver
-{% end highlight %}
+{% endhighlight %}
 
 If you ever change the init script, stop and start, as restart would not re-read the file.
 
@@ -93,7 +93,7 @@ var cluster = require('cluster')
 cluster.setupMaster({exec: 'app.js'});
 for (var i = 0; i < numCPUs; i++) 
   cluster.fork();
-{% end highlight %}
+{% endhighlight %}
 
 ### Use (re)cluster for zero downtime deployments
 
@@ -107,12 +107,12 @@ We have our own wrapper script for this, so if we run in development, we run as
 
 {% highlight bash%}
 $ node app.js
-{% end higlight %}
+{% endhiglight %}
 then this simply changes to 
 
 {% highlight bash%}
 $ ./bin/cluster app.js
-{% end higlight %}
+{% endhiglight %}
 
 and the wrapper adds all the cluster functionality, without requiring you to change anything in the app.
 
@@ -149,7 +149,7 @@ In our autoscaling setup we have on EC2, we have a ELB -> nginx -> node.js stack
       },heartbeatInterval);
     }, startupDelay);
   }
-{% end highlight %}
+{% endhighlight %}
 
 5. Log rotation
 
@@ -168,7 +168,7 @@ Here's how our logrotate config looks like.
                 reload myserver >/dev/null 2>&1 || true
         endscript
 }
-{% end highlight %}
+{% endhighlight %}
 
 Copy this file in /etc/logrotate.d/
 
@@ -196,7 +196,7 @@ process.addListener("SIGHUP", function() {
   reload(args);
 });
 
-{% end highlight %}
+{% endhighlight %}
 
 args.l and args.e are the files to be used for stdout/stderr, specified by running the process with -l and -e option.
 
@@ -228,7 +228,7 @@ http.createServer(app)
       console.log("Express server listening on port " + app.get('port'));
     });
 
-{% end highlight %}
+{% endhighlight %}
 
 ### Redis with hiredis. 
   Unless you are a creature of the dark ages still running a traditional LAMP stack, chances are you will use some nosql. My advice, don't bother with anything else, just stick to redis. Express by default recommends to store session in redis, and we use redis for caching data from mysql.
@@ -244,7 +244,7 @@ It creates a v8.log file, which you can then process with tools like node-tick.
 {% highlight bash %}
 $ npm install -g node-tick 
 $ node-tick-processor v8.log
-{% end highlight %}
+{% endhighlight %}
 
 Its also possible to programatically enable it, such that you enable it by sending a signal and then turn it off after collecting profiler data, but I haven't experimented with that and YMMV. My understanding is that the profiler runs anyway in v8, to enable it to find and compile hot code, so the overhead of --prof shouldn't be huge. We have run it in production and it has helped us with CPU issues. For memory leak, see my previous post on node-time.
 
@@ -271,7 +271,7 @@ module.exports = net.createServer(function (socket) {
   })
   r.context.socket = socket
 }).listen(1337);
-{% end highlight %}
+{% endhighlight %}
 
 then require repl.js somewhere inside your app, say in app.js
 
@@ -285,7 +285,7 @@ Connected to localhost.
 Escape character is '^]'.
 [88501] 127.0.0.1:57876>  var m = require('./lib/mymodule');
 [88501] 127.0.0.1:57876>  util.inspect(m);
-{% end highlight %}
+{% endhighlight %}
 
 Remember, this is absolute power, and GOD mode must come with absolute responsibility.
 
