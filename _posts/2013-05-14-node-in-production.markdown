@@ -7,20 +7,21 @@ title: 10 tips to nodejs nirvana in production
 We have been using node.js in production environments since a few years now, back when it was still in 0.4. We have used node for ecommerce, for ad-serving, as an API server and just about everything else, short of calculating the nth fibonacci number (we use GO for that sort of stuff, no kidding). When you run stuff in production, and at scale, there are lessons to be learned and insights to be gleaned, sometimes the hard way. This is a compilation of certain learnings that work for us, listed here in the hope that someone may find it useful. YMMV.
 
 For the impatient, here is the tl;dr
-  * Don't reinvent the wheel, use the unix way of doing things.
-  * Build redundancy at all levels.
+* Don't reinvent the wheel, follow the unix way of doing things.
+* Build redundancy at all levels.
 
 ## Use upstart
 
-As with any high availability system, you need to make sure that your node process is up all the time. There are multiple options for this, from monit to custom scripts and what not, but we have stuck with upstart. 
+As with any high availability system, you need to make sure that your node process is up all the time, and it starts at boot time.
+There are multiple options for this, from monit to custom sys V init scripts and what not, but we have stayed with upstart.
 
-Upstart is not available everywhere, but our production environments has been ubuntu, and its available by default on ubuntu. Here's how the upstart config looks like.
+Upstart is not available everywhere, but our production environments has always been Ubuntu, where it is available by default. Here's how the upstart config looks like.
 
-Using upstart is fairly simple, just place the config file in /etc/init. Here's how the file looks like, 
+Using upstart is fairly simple, just place the config file in /etc/init. Here's how the config file looks like, 
 
 {% highlight bash %}
 description "Start and stop myserver"
-author "one97"
+author "Qasim"
 
 env APP_NAME=myserver
 env APP_HOME=/var/www/myserver/releases/current
@@ -62,6 +63,7 @@ Place that file in /etc/init, and then use start to start the proces.
 
 # cp myserver.conf /etc/init/
 # status myserver
+myserver stopped/waiting
 
 # start myserver
 {% endhighlight %}
@@ -73,11 +75,11 @@ To restart or stop
 #stop myserver
 {% endhighlight %}
 
-If you ever change the init script, stop and start, as restart would not re-read the file.
+If you ever change the init script, stop and start afterwards, as restart would not re-read the config file.
 
 ### Use cluster for multi-core environments
 
-A node process uses a single core, and there isn't anything like threads to make use of all cores. Instead, you can use the cluster.
+A node process uses a single core, and there isn't anything like threads (thank god for that). To make use of all the cores, you have to use multiple processes, and the cluster module helps here. 
 
 The manual page for cluster still says its experimental, but don't let that deter you. It has come a far way off from the earliest incarnations, and its a must for any production server.
 
@@ -101,26 +103,26 @@ Even in environments where only one core is available, as in our EC2 setup where
 
 If you reload nginx after changing the configuration, the master process forks new workers and tells the old ones to stop accepting new connections, but let them server existing sockets before exiting. So no downtime is involved when nginx is reloaded. We do the same thing with our node apps, and to do this, we use an npm module called [recluster] (https://github.com/doxout/recluster). The bin/cluster wrapper makes this automatic, and when a USR2 signal is sent to the master, it executes a reload. In our deployment script, after deploying the code, we issue a reload by sending a signal. There is a module named recluster that is a wrapper over node's cluster module and does this. Our bin/cluster shell wrapper actually uses recluster to do this.
 
-If you use nfs, you could use the filesystem instead of sending a signal to the process to do this. We use a file named restart that is touched when we want the cluster to be restarted. Inside the bin/cluster wrapper, we use fs.watchFile to watch the restart file, reloading the cluster. This is slightly more convenient than figuring out the master process id and doing kill -USR2 <pid>, and especially handy if you use nfs and want to restart multiple servers at once.
+If you use nfs, you could use the filesystem instead of sending a signal to the process to do this. We use a file named restart that is touched when we want the cluster to be restarted. Inside the bin/cluster wrapper, we use fs.watchFile to watch the restart file, reloading the cluster. This is slightly more convenient than figuring out the master process id and doing kill -USR2 &lt;pid&gt;, and especially handy if you use nfs and want to restart multiple servers at once.
 
 We have our own wrapper script for this, so if we run in development, we run as 
 
 {% highlight bash%}
 $ node app.js
-{% endhiglight %}
+{% endhighlight %}
 then this simply changes to 
 
 {% highlight bash%}
 $ ./bin/cluster app.js
-{% endhiglight %}
+{% endhighlight %}
 
 and the wrapper adds all the cluster functionality, without requiring you to change anything in the app.
 
 ### Heartbeat Checks
 
-In spite of our best intentions, things go wrong in production. One recent issue we had caused node.js to use too much of CPU. On EC2, if you do that, you meet the same fate as Oliver Twist (The Boy who asked for more). You are penalized for being a noisy tenant via steal time, and the process becomes unresponsive.
+In spite of our best intentions, things go wrong in production. One recent issue we had caused node.js to use too much of CPU. On EC2, if you do that, you meet the same fate as Oliver Twist (The Boy who asked for more). Any spikes above a few seconds and you are penalized for being a noisy tenant via steal time, and the server becomes unresponsive.
 
-In our autoscaling setup we have on EC2, we have a ELB -> nginx -> node.js stack, and when things start getting bad on any of the instances, ELB will take it out and launch new instances. While we have made setting up a new instance really fast, it still takes 2-3 minutes for the instance to come up, deploy code, compile stuff and then be detected as up by the ELB. Thats too slow for our setup, and for this reason, we built redundancy into every instance. Our cluster shell wrapper also checks for a heartbeat, and if a timeout happens, restarts the app. Here's how that code looks like
+In our autoscaling setup we have on EC2, we have a ELB -> nginx -> node.js stack, and when things start getting bad on any of the instances, ELB will detect iand launch new instances. While we have made setting up a new instance really fast, it still takes 2-3 minutes for the instance to come up, deploy code, compile stuff and then be detected as up by the ELB. Thats too slow for our setup, and for this reason, we built redundancy into every instance. Our cluster shell wrapper also checks for a heartbeat, and if a timeout happens, restarts the app. Here's how that code looks like
 
 {% highlight javascript %}
   if (port) {
@@ -151,9 +153,9 @@ In our autoscaling setup we have on EC2, we have a ELB -> nginx -> node.js stack
   }
 {% endhighlight %}
 
-5. Log rotation
+### Log rotation
 
-Thou shalt rotate your logs is a commandment not to be disputed with. How do we do it? Simple, we use logrotate, which is already there on most linux systems.
+Thou shall rotate your logs is a commandment most people follow. How do we do it? Simple, we use logrotate, which is already there on most linux systems.
 
 Here's how our logrotate config looks like.
 {% highlight bash %}
@@ -200,12 +202,12 @@ process.addListener("SIGHUP", function() {
 
 args.l and args.e are the files to be used for stdout/stderr, specified by running the process with -l and -e option.
 
-6. Automated deployments with deploy.sh
+### Automated deployments with deploy.sh
 Capistrano what? Who wants to run ruby to install node programs and add another dependency.
 
-For deployments, we use a modified version of the visionmedia deploy.sh script. Its a shell script, so no prerequisites, and is quite flexible, so we use it in nodejs and other projects as well.
+For deployments, we use a modified version of the [visionmedia deploy.sh script] (https://github.com/visionmedia/deploy). Its a shell script, so no prerequisites, and is quite flexible, so we use it in other non nodejs projects as well.
 
-7. Set listen backlog, max agents and max open files limit.
+### Set listen backlog, max agents and max open files limit.
 
 We use express as our web framework, and its a de-facto standard now. Express boilerplate code could do with some improvements, here is what we change at the bottom of a generated app.js
 
@@ -231,15 +233,20 @@ http.createServer(app)
 {% endhighlight %}
 
 ### Redis with hiredis. 
-  Unless you are a creature of the dark ages still running a traditional LAMP stack, chances are you will use some nosql. My advice, don't bother with anything else, just stick to redis. Express by default recommends to store session in redis, and we use redis for caching data from mysql.
+Unless you are still in the dark ages ,running a very traditional LAMP stack, chances are you will use some nosql. My advice, don't bother with anything else, just stick to redis. In our case, we use redis for session storage, and as a caching layer for mysql and other data.
 
- If you use redis in production, use it with hiredis driver. Without hiredis, we have seen redis choke the server even at moderate loads.
+If you use redis in production, use it with hiredis driver. Without hiredis, we have seen redis choke the server even at moderate loads. Hiredis is an async implementation of the redis protocol, as opposed to a javascript implementation.
 
 ### Profile often, with the v8 profiler.
 
-The v8 profiler is easy to enable, you just add the --prof switch to node. And it will save you a lot of time trying to figure out memory or CPU issues.
+The v8 profiler is easy to enable, you just add the --prof switch to node.
+It will save you a lot of time if you get stuck with memory or CPU issues, and even otherwise, its a good idea to know where the bottlenecks are.
 
-It creates a v8.log file, which you can then process with tools like node-tick.
+{% highlight bash %}
+$ node --prof app.js
+{% endhighlight %}
+
+This creates a v8.log file, which you can then process with tools like node-tick.
 
 {% highlight bash %}
 $ npm install -g node-tick 
@@ -252,7 +259,7 @@ Its also possible to programatically enable it, such that you enable it by sendi
 
 You can run a REPL inside your node app, and then connect to it via a socket
 
-To enable repl, create a file named repl.js
+To enable [ REPL ] (http://nodejs.org/api/repl.html), create a file named repl.js
 
 {% highlight javascript %}
 var repl = require('repl')
@@ -275,7 +282,6 @@ module.exports = net.createServer(function (socket) {
 
 then require repl.js somewhere inside your app, say in app.js
 
-
 Now you can connect to your app in production, view variables, change settings.
 
 {% highlight bash %}
@@ -287,7 +293,7 @@ Escape character is '^]'.
 [88501] 127.0.0.1:57876>  util.inspect(m);
 {% endhighlight %}
 
-Remember, this is absolute power, and GOD mode must come with absolute responsibility.
+Remember, GOD mode is absolute power, and that comes with greatest responsibilities. You can mess things up.
 
 If you use cluster, you should tweak the code example above to use a different port for each worker, or else you will have to telnet many a times and then hope to get the right process.
 
