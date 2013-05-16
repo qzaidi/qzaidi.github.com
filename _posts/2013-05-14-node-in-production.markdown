@@ -75,7 +75,7 @@ To restart or stop
 #stop myserver
 {% endhighlight %}
 
-If you ever change the init script, stop and start afterwards, as restart would not re-read the config file.
+If you ever change the myserver.conf, use stop and start instead of 'restart myserver', as restart would not re-read the upstart config file.
 
 ### Use cluster for multi-core environments
 
@@ -83,7 +83,7 @@ A node process uses a single core, and there isn't anything like threads (thank 
 
 The manual page for cluster still says its experimental, but don't let that deter you. It has come a far way off from the earliest incarnations, and its a must for any production server.
 
-What cluster does is to start multiple node processes and load balance among them. It does this almost magically, without you needing to change any code. 
+What cluster does is to start multiple node processes and load balance among them. It [ does this almost magically ] (http://nodejs.org/api/cluster.html#cluster_how_it_works), without you needing to change any code.
 
 As you can see in the command line we used in the init script, all we do is to wrap the app.js process with a script, and that brings in cluster. Its like forking a process in C after creating the listening socket.
 
@@ -116,7 +116,7 @@ then this simply changes to
 $ ./bin/cluster app.js
 {% endhighlight %}
 
-and the wrapper adds all the cluster functionality, without requiring you to change anything in the app.
+The wrapper adds all the cluster functionality, without requiring us to change anything in the app.js.
 
 ### Heartbeat Checks
 
@@ -220,7 +220,7 @@ app.configure('production', function() {
 
 
 http.createServer(app)
-    .on('error', function(e) {    // do not fail silently on error
+    .on('error', function(e) {    // do not fail silently on error, particularly annoying in development.
       if (e.code == 'EADDRINUSE') {
         console.log('Failed to bind to port - address already in use ');
         process.exit(1);
@@ -235,7 +235,13 @@ http.createServer(app)
 ### Redis with hiredis. 
 Unless you are still in the dark ages ,running a very traditional LAMP stack, chances are you will use some nosql. My advice, don't bother with anything else, just stick to redis. In our case, we use redis for session storage, and as a caching layer for mysql and other data.
 
-If you use redis in production, use it with hiredis driver. Without hiredis, we have seen redis choke the server even at moderate loads. Hiredis is an async implementation of the redis protocol, as opposed to a javascript implementation.
+If you use redis in production, use it with hiredis driver. Without hiredis, we have seen redis choke the server even at moderate loads. Hiredis is an async implementation of the redis protocol.
+
+Using hiredis instead of the default javascript implementation is fairly simple, just add it as a dependency. 
+
+{% highlight bash %}
+$ npm install --save hiredis redis
+{% endhighlight %}
 
 ### Profile often, with the v8 profiler.
 
@@ -253,7 +259,7 @@ $ npm install -g node-tick
 $ node-tick-processor v8.log
 {% endhighlight %}
 
-Its also possible to programatically enable it, such that you enable it by sending a signal and then turn it off after collecting profiler data, but I haven't experimented with that and YMMV. My understanding is that the profiler runs anyway in v8, to enable it to find and compile hot code, so the overhead of --prof shouldn't be huge. We have run it in production and it has helped us with CPU issues. For memory leak, see my previous post on node-time.
+Its also possible to programatically enable it, such that you enable it by sending a signal and then turn it off after collecting profiler data, but I haven't experimented with that and YMMV. The profiler runs anyway in v8, to identify code that is hot and optimize, so the overhead of --prof isn't much. We have run it in production and it has helped us figure CPU issues. 
 
 ### Enable GOD Mode with REPL
 
