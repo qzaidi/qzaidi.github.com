@@ -1,13 +1,13 @@
 ---
 layout: post
 style: text
-title: Autoscaling with EC2 and VPS
+title: Autoscaling on AWS
 ---
 
 We recently switched our infra on Amazon Web Services to use auto scaling. Scaling capacity up and down, based on certain conditions (e.g. traffic) is cool by itself, but site cost efficiency and better capacity planning are the oft cited reasons for autoscaling (in case you go pitch this to management after reading this). The icing on the cake is that it makes your overall infrastructure much more robust and fault tolerant. That's because 
 
 > You can't autoscale what You can't automate. 
->                           Yogi Berra
+>                           - Yogi Berra
 
 I just made that quote up, but the idea is sound. Let me explain. When most people move their infra to EC2, they setup things by hand. So you would start with a certain capacity, which would be good enough to handle your peak load, and some more, planning for that future growth. (What a waste though, most ecommerce websites will have a near zero traffic between 2-6 AM, and peak and average load differ by a good margin). Then if you are lucky enough to have a scaling problem at hand, or shortsighted to have started with an stingy budget in the first place, you would be adding a second server. Thats assuming most stacks today will scale horizontally except at the DB level, but in case yours won't, you would upgrade your existing one to a higher capacity.
 
