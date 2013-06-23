@@ -69,5 +69,6 @@ And then <a href="javascript: (function() { var script = document.createElement(
 
 This loads a script that will [observe the div element](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) that contains the current visitor count, and send that value to the dashboard server via an XMLHTTPRequest. That's all, folks - by opening a seperate tab in the browser, and logging on to GA, you can fetch the data from GA, and visualize it in your dashing dashboard. There's hardly anything specific to dashing-js here, so you could really use this technique anywhere else.
 
-<script src="https://gist.github.com/qzaidi/6a15df8f3c2e5e61b8b0.js"></script>
+<script type="text/javascript" src="https://gist.github.com/qzaidi/6a15df8f3c2e5e61b8b0.js">
+</script>
 
