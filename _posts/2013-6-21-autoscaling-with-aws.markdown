@@ -39,6 +39,6 @@ So in your autoscale config, you would want to identify what logs you need to pe
 
 But its not just the logs that go on the instance store. Code is Ephermal too, and your code should be on instance store as well. It should be pretty obvious by now that even if you burn the code on AMI, well, how are you going to update it to the latest revision when a new instance comes up. I recommend that your AMI volumes have none of your code, only the stack. For example, our AMI images are only linux+nginx+node.js, and do not contain any code at all. Code is provisioned via user data scripts.
 
-I guess that's it for the part 1. I leave you with a shot of our dashing developer dashboard - which is primarily there to show me how many instances are up and running at any time. The numbers have been fudged deliberately, don't try to read too much into them.
+I guess that's it for the part 1. I leave you with a shot of our [dashing developer dashboard](/2013/06/23/dashboards-with-dashing/) - which is primarily there to show me how many instances are up and running at any time. The numbers have been fudged deliberately, don't try to read too much into them.
 
 ![duas.mobi](/img/dashboard.png "Our awesome dashboard")
