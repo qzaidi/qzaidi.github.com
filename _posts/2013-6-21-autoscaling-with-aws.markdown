@@ -41,4 +41,6 @@ But its not just the logs that go on the instance store. Code is Ephermal too, a
 
 I guess that's it for the part 1. I leave you with a shot of our [dashing developer dashboard](/2013/06/23/dashboards-with-dashing/) - which is primarily there to show me how many instances are up and running at any time. The numbers have been fudged deliberately, don't try to read too much into them.
 
+*Update* : [Part 2 of this series](/2013/06/30/autoscaling-part-2/) is now available.
+
 ![duas.mobi](/img/dashboard.png "Our awesome dashboard")
