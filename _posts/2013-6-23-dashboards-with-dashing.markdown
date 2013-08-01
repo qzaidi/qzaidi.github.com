@@ -20,6 +20,8 @@ In my quest for cheap, ubiquitious, real time lies (er, stats), I turned to Goog
 
 I looked for the GA Real Time API and there was none, since forever. From the looks of it, no one should be expecting it either. It has been the [top requested feature on the analytics issue tracker](https://code.google.com/p/analytics-issues/issues/detail?id=154), circa fall 2011.
 
+*Update - 8/2/2013*: It seems there will be an API. Google has now come up with an [invite only beta for the Real Time API](http://analytics.blogspot.co.uk/2013/08/google-analytics-launches-real-time-api.html), just about a month after writing this. I am not holding my breath though.
+
 Can we work around that? I set out to seek an answer. After a few wasted attempts at Reverse Engineering and figuring how to generate SID and APISID and numerous other tokens, I gave up. And then I had some inspiration.
 
 For the TV screen, we would anyway open the browser to show the dashboard.Why not open another tab, log in to GA, and then run a client side script that pipes this data to our custom dashboard. 
