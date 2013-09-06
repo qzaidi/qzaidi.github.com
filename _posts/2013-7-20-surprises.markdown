@@ -39,7 +39,8 @@ Etags work great, and have some unexpected uses as well ([tracking without cooki
 Resolution: Add app.disable('etag') to app.js
 
 ### faux HTTP method support - no thanks!
-In the boilerplate template that express generates, methodOverride middleware is enabled. I never bothered about it, thinking it would be something similar to bodyParser middleware which precedes it in app.js and which parses bodies in the POST/PUT requests. When it showed up in the profiler, I looked it up in connect code, to be greeted by equally obscure *Provides faux HTTP method support.* comment. Looking it up yielded this from stackoverflow - it basically allows you to use the right HTTP verb in forms, because HTML forms only support POST, not PUT/DELETE. Insightful, but we don't use puts anywhere. Going further on that path, I realize we don't even use POST anywhere, and could rid ourselves of the bodyParser as well
+In the boilerplate template that express generates, methodOverride middleware is enabled. I never bothered about it, thinking it would be something similar to bodyParser middleware which precedes it in app.js. When it showed up in the profiler, I looked it up in connect code, to be greeted by equally obscure *Provides faux HTTP method support.* comment. Looking it up yielded this from stackoverflow - it basically allows you to use the right HTTP verb in forms, because HTML forms only support POST, not PUT/DELETE. Insightful, but we don't use puts anywhere. That, and the fact that some connect versions are [vulnerable to
+CSS] (https://nodesecurity.io/advisories/51d0d6abf196582611000001) because the verb is not actually checked, it made sense to get rid of it. Going further on that path, I realize we don't even use POST anywhere, and could rid ourselves of the bodyParser as well
 
 Resolution: two lines were struck from app.js
 
