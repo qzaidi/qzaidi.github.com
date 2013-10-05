@@ -4,9 +4,7 @@ style: text
 title: Introducing Quran.js
 ---
 
-== Genesis
-
-My $4 VPS went down. And so did a couple of sites I host there. After a couple of exchanges that went like this
+My \$4 VPS went down. And so did a couple of sites I host there. After a couple of exchanges that went like this
 
 ![The VPS ](http://imgs.xkcd.com/comics/black_hat_support.png)
 
