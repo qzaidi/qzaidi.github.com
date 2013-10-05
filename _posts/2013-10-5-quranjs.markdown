@@ -1,10 +1,10 @@
 ---
-layout: home
+layout: post
 style: text
 title: Introducing Quran.js
 ---
 
-My \$4 VPS went down. And so did a couple of sites I host there. After a couple of exchanges that went like this
+My $4 VPS went down. And so did a couple of sites I host there. After a couple of exchanges that went like this
 
 ![The VPS ](http://imgs.xkcd.com/comics/black_hat_support.png)
 
@@ -64,13 +64,15 @@ There's enough material on the net on how to host jekyll based websites on gh-pa
 Here's how to fetch a single cell (row 15, column 3) using the json feed API.
 
 {% highlight html %}
-<script src="docs.google.com/feeds/cells/<key>/od6/public/values/R15C3?alt=json-in-script&callback=<callbackfunc>"></script>
+<script src="docs.google.com/feeds/cells/<key>/od6/public/values/R15C3?alt=json-in-script&callback=<callbackfunc>">
+</script>
 {% endhighlight %}
 
 Here's how to fetch a range of cells (C1 to D2) using jsonp and google query language. 
 
 {% highlight html %}
-<script src="docs.google.com/tq?key=<key>&range=C1D2&tqx=responseHandler:<callbackfunc>"></script>
+<script src="docs.google.com/tq?key=<key>&range=C1D2&tqx=responseHandler:<callbackfunc>">
+</script>
 {% endhighlight %}
 
 ## The Catch
