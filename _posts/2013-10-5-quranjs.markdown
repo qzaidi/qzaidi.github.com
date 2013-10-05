@@ -43,14 +43,14 @@ For more examples of how this works, please check out [Quran.js homepage](http:/
 
 First, let's give credit where its due
 
-- Tanzil.net
-  Kudos to these guys for making the entire text of Al Quran (6248 verses in all) available in the unicode text format. 
+*Tanzil.net*
+Kudos to these guys for making the entire text of Al Quran (6248 verses in all) available in the unicode text format. 
 
-- Github
-  For being such an excellent web host (gh-pages + jekyll = awesomeness)
+*Github*
+For being such an excellent web host (gh-pages + jekyll = awesomeness)
 
-- Google Spreadsheets
-  For providing a JSON API and a query language
+*Google Spreadsheets*
+For providing a JSON API and a query language
 
 And here's how I did it
 
