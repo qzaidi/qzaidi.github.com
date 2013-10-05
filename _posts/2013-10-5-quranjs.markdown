@@ -1,0 +1,81 @@
+---
+layout: home
+style: text
+title: Introducing Quran.js
+---
+
+== Genesis
+
+My $4 VPS went down. And so did a couple of sites I host there. After a couple of exchanges that went like this
+
+![The VPS ](http://imgs.xkcd.com/comics/black_hat_support.png)
+
+they shifted their position from 'we only provide unmanaged hosting and uptime is your responsibility' to 'ubuntu 12.x is not compatible, please switch to centos'. Long story short, that server is still not up.
+
+This exchange got me thinking. This blog, hosted on github, has never went down. Not even on those lucky days when posts made it to the top 5 on hackernews. So why not return to those days of yore, when spirits were brave, stakes were high and webpages were static html files served off a webserver. Are the dynamic languages we program in any better than cgi-bins and are they really needed?
+
+![Download our app ](http://imgs.xkcd.com/comics/app.png)
+
+The moment of epiphany was punctured by the real need of database for most dynamic apps.  Take for example, this project of mine where I want to be able to embed arabic text in english webpages. To be precise, embed verses from the Quran as easily as embedding gists. Can that be done without a VPS/ paid hosting?
+
+To be clear, what I wanted was an API like this
+
+{% highlight html %}
+<script chapter=15 verse=9 src="http://qzaidi.github.io/quran/js/quran.js">
+</script>
+{% endhighlight %}
+
+<br/>
+
+That when embedded, produces an output like this
+
+<script chapter="15" verse="9" src="http://qzaidi.github.io/quran/js/quran.js">
+</script>
+
+This became my weekend project, and if you saw some arabic text above, thats the proof it happened. This uses a combo of github + google spreadsheets, so as long as both of these products cease to exist, which is less probable than the likelihood of my VPS going down or me failing to pay their bill, it would be up. And the idea is generic enough for anyone to implement another viewer for the Hebrew Bible, Talmud or the Bhagvad Geeta. So that our discourses about religion are no longer discourses of the ignorant.
+
+<script chapter="31" verse="20" trans="#trans" src="http://qzaidi.github.io/quran/js/quran.js">
+</script>
+<blockquote id="trans">
+</blockquote>
+
+## Workings
+
+For more examples of how this works, please check out [Quran.js homepage](http://qzaidi.github.io/quran/javascript). 
+
+First, let's give credit where its due
+
+- Tanzil.net
+  Kudos to these guys for making the entire text of Al Quran (6248 verses in all) available in the unicode text format. 
+
+- Github
+  For being such an excellent web host (gh-pages + jekyll = awesomeness)
+
+- Google Spreadsheets
+  For providing a JSON API and a query language
+
+And here's how I did it
+
+1. Import the text of Al Quran from tanzil.net, as a psv (pipe separated values) file.
+1. Make the spreadsheet public, so all can access it without OAuth.
+1. Write the quran.js script, which converts the input (chapter number, verse number) to an appropriate row/column in the spreadsheet, and then insert 
+the contents from the spreadsheet into a div, with all the styling applied.
+
+There's enough material on the net on how to host jekyll based websites on gh-pages, but I found the documentation around google spreadsheets sketchy.Google's documentation of spreadsheet API focuses on private spreadsheets, and a lot of functionality is just not available for public spreadsheets.
+
+Here's how to fetch a single cell (row 15, column 3) using the json feed API.
+
+{% highlight html %}
+<script src="docs.google.com/feeds/cells/<key>/od6/public/values/R15C3?alt=json-in-script&callback=<callbackfunc>"></script>
+{% endhighlight %}
+
+Here's how to fetch a range of cells (C1 to D2) using jsonp and google query language. 
+
+{% highlight html %}
+<script src="docs.google.com/tq?key=<key>&range=C1D2&tqx=responseHandler:<callbackfunc>"></script>
+{% endhighlight %}
+
+## The Catch
+While Google Query Language is very powerful, its also very slow. Currently I use it only to select multiple verses or verse + translation, and use the JSON cell feed for displaying a single verse. 
+
+On the other hand, I am not aware of any kind of rate limiting imposed by either github or google, which makes these companies awesome for hosting this kind of API.
