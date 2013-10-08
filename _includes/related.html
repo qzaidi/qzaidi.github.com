@@ -1,0 +1,14 @@
+<h4> Related </h4>
+<ul>
+{% for tag in page.tags %}
+  {% for post in site.posts %}
+    {% if post.tags contains tag %}
+      {% if post.id == page.id %}
+      {% else %}
+        <li class="{% cycle 'left','right' %}"><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+        {% cycle '','<br/>' %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+</ul>

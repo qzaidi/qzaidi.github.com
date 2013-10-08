@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: Introducing Quran.js
+tags: 
+  - javascript
 ---
 
 My $4 VPS went down. And so did a couple of sites I host there. After a couple of exchanges that went like this

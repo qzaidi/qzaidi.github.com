@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: Profiling node apps
+tags: 
+  - node.js
 ---
 
 We recently had a problem with our node.js app. It was leaking memory. Not that this problem was biting us or anything. With a daily deployment cycle, we end up restarting every day and this would mask such issues. Fortunately, there are weekends and we don't do releases on weekends mostly (there are exceptions when the weekend is the best day for a release, and we aren't fanatical about resting on sabbath in those cases). The alarming memory growth on the weekend as evident in this chart alerted us there may be a problem.

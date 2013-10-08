@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: What I learnt profiling a node.js app.
+tags: 
+  - node.js
 ---
 
 Off late, I had to revisit a node.js frontend webserver. It was written sometime back and wasn't getting much love, but after we started [autoscaling](/2013/06/21/autoscaling-with-aws/), I became increasingly concerned about its performance. Another benefit of autoscaling is that when your capacity closely mirrors traffic, you become much more aware of how much you could save if your stack was even slightly more performant. 

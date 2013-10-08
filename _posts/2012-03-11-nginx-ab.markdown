@@ -2,6 +2,9 @@
 layout: post
 style: text
 title: Using nginx for A/B testing
+tags: 
+  - nginx
+  - devops
 ---
 
 You have spent months on a big rewrite, cleaning up the mess. Or maybe you are replacing an existing website, but want to test the new version on a handful of users, to iron out the bugs or for just gathering feedback. So how to test the two versions in parallel, and see which one works?

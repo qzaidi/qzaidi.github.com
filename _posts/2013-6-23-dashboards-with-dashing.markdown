@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: Real Time Dashboard using GA and dashing
+tags: 
+  - node.js
 ---
 
 My [last post](http://qzaidi.github.io/2013/06/21/autoscaling-with-aws/) finished with screengrab of our developer dashboard, and it generated a considerable interest, as evidenced by *dashing* repo trending to the top at [https://github.com/explore](github). 

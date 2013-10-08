@@ -2,6 +2,9 @@
 layout: post
 style: text
 title: Phantomjs, headless scripting and code reuse
+tags: 
+  - javascript
+  - testing
 ---
 
 [Phantomjs](http://phantomjs.org) is headless browser (Webkit based) with a javascript API. IMO, it is the best tool available if you are looking for any kind of Automated Browser Testing. But beyond that, you can use it for scraping, screenshotting, and even monitoring your own page load times. It comes with a comprehensive set of examples that demonstrate what is possible.

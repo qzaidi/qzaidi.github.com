@@ -2,6 +2,9 @@
 layout: post
 style: text
 title: Nginx Full page Caching for Magento
+tags: 
+  - nginx
+  - devops
 ---
 
 > Build a better mousetrap, and the world will beat a path to your door.

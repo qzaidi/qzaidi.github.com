@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: Autoscaling on AWS - 2
+tags: 
+  - devops
 ---
 
 This post is second in the series [Autoscaling with AWS](/2013/06/21/autoscaling-with-aws/). The point being that unless you programatically scale things up and down on AWS, it comes out costlier than other hosting options, for load profiles that look like this.

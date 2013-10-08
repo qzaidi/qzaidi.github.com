@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: How do you measure up?
+tags: 
+  - devops
 ---
 
 >  You can't manage what you don't measure.

@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: Site Speed - How fast is fast enough
+tags: 
+  - devops
 ---
 
 Its almost a cliche to say that if your site isn't fast enough, you are losing money on the table. At Urbantouch.com, we take this to heart though, and it was a design goal for us to build something that is blazingly fast, and that scales well. 

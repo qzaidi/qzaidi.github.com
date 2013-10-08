@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: pstack for node.js
+tags: 
+  - node.js
 ---
 
 

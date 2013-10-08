@@ -2,6 +2,7 @@
 layout: post
 style: text
 title: Using Free Barcode fonts with pdfkit and nodejs
+tags: barcode
 ---
 
 ## Using a barcode font with pdfkit

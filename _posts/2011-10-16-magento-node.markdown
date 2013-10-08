@@ -2,6 +2,9 @@
 layout: post
 style: text
 title: A Magento Api client in nodejs
+tags: 
+  - magento
+  - node.js
 ---
 
 > Simple things should be simple, complex things should be possible.

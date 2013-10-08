@@ -2,6 +2,8 @@
 layout: post
 style: text
 title: 10 steps to nodejs nirvana in production
+tags: 
+  - node.js
 ---
 
 We have been using node.js in production environments since a few years now, back when it was still in 0.4. We have used node for ecommerce, for ad-serving, as an API server and just about everything else, short of calculating the nth fibonacci number (we use GO for that sort of stuff, no kidding). When you run stuff in production, and at scale, there are lessons to be learned and insights to be gleaned, sometimes the hard way. This is a compilation of certain learnings that work for us, listed here in the hope that someone may find it useful. YMMV.
