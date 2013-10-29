@@ -1,0 +1,11 @@
+---
+layout: post
+style: text
+title: Back to school
+---
+
+In case you are wondering why this blog wasn't being updated as frequently as before, this was what was keeping me busy on the weekends
+
+![The cert](/img/edx.png)
+
+The linear algebra involved was quite taxing on my brain to leave much time for blogging. In the end, the new perspective was very much worth the pain.
