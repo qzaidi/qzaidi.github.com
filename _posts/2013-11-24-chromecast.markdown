@@ -6,7 +6,7 @@ title: Chromecast
 
 My $35 chromecast from Google arrived this week. Except that after all the taxes and duties, it was no longer $35, more like $60 for me.
 
-![Eureka, the dongle] (http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Chromecast_dongle.jpg/300px-Chromecast_dongle.jpg)
+![Eureka, the dongle] (/img/chromecast.jpg)
 
 Its a device google bills as the easiest way to enjoy online video and music on your TV.
 
