@@ -41,7 +41,7 @@ Host somenonexistentdomain.com not found: 3(NXDOMAIN)
 
 However, they inspect all udp packets destined to port 53, so no matter which DNS server you query, your packet never gets out of the ISP's network unmodified and it never gets anywhere other than Spectranet's DNS. But they pretend that it did, and send you a response making it look like it did. That's like all roads leading to Rome, but the signs saying otherwise.
 
-So I could specify any DNS IP, even a non existent one, and it works on spectranet. Here's how it looks like.
+I could specify any DNS IP, even a non existent one, and it works on spectranet. Here's proof.
 
 {% highlight bash %}
 $host yahoo.com 8.8.8.8
