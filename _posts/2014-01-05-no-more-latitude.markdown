@@ -30,7 +30,7 @@ There are 2 ways you can pull out the data right now. One is to [access the loca
 
 There is this strange restriction that you could only download a maximum of 30 days of data from the UI, but if you change the start time and end time manually in this url, you will be able to access it for arbitrary time ranges.
 
-https://maps.google.com/locationhistory/b/0/kml?startTime=*1387909800000*&endTime=*1387996200000*
+https://maps.google.com/locationhistory/b/0/kml?startTime=1387909800000&endTime=1387996200000
 
 The other option is to download all of your location history from [Google Data tools](https://www.google.com/settings/takeout/custom). 
 
