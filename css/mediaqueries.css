@@ -47,7 +47,7 @@ body.post .content img.huge {
 		width: 1068px;
 	}
 	body.post .content h1, body.post .content h2, body.post .content h3, body.post .content h4, body.post .content h5, body.post .content h6 { margin-left: 252px; }
-	body.post .content p, body.post .content ul, body.post .content ol, body.post .content dl, body.post .content blockquote, body.post .content .highlight { margin-left: 252px; }
+	body.post .content p, body.post .content ul, body.post .content ol, body.post .content dl, body.post .content blockquote, body.post .content .highlight, iframe { margin-left: 252px; }
 	body.post .content img.huge {
 		left: -252px;
 		max-width: 1048px;
