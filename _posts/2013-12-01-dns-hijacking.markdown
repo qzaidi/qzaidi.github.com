@@ -86,7 +86,7 @@ server=uuu.vvv.www.xxx#10053
 listen-address=127.0.0.1,192.168.1.3
 {% endhighlight %}
 
-Here - 192.168.1.3 is the fixed address I have assigned to the local Box. Why so? Because also want to run a DHCP server and disable the DHCP on your router, in case you want the goodies to be available on all devices on your network, such as your mobile phone / tablets. If so, add the following
+Here - 192.168.1.3 is the fixed address I have assigned to the local Box. Why so? Because I also want to run a DHCP server and disable the DHCP on my router. In case you want the goodies to be available on all devices on your network, such as your mobile phone / tablets, you would want to do so as well.
 
 {% highlight bash %}
 dhcp-range=192.168.1.50,192.168.1.150,12h
@@ -105,7 +105,7 @@ no-dhcp-interface=*.*.*.*
 log-queries
 {% endhighlight %}
 
-Adding the log queries at the end allows you to see if the DNS is really being used by chromecast.
+Adding the log queries at the end allows you to see if the DNS is really being used by chromecast. You should also remember that any entries in /etc/hosts on local box will be given priority by dnsmasq.
 
 One more thing - I haven't tried this myself, but if chromecast will still not work, add an entry to your router to make traffic to 8.8.8.8 and 8.8.8.4 go via non existent routes. I have heard that chromecast will override local DNS settings from router and still try to connect to google's dns, but if they are unreachable (easy to achieve via a bad route on the router), it will fall back and use the DNS you want it to use.
 
