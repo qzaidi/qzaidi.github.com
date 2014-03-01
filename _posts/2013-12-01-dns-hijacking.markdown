@@ -81,29 +81,29 @@ Here's a bit about the dnsmasq config that should get you started.
 
 On the local Box, we run a dns server on port 53. You can start with a default config, and uncomment/update these lines
 
-```bash
+{% highlight bash %}
 server=uuu.vvv.www.xxx#10053
 listen-address=127.0.0.1,192.168.1.3
-```
+{% endhighlight %}
+
 Here - 192.168.1.3 is the fixed address I have assigned to the local Box. Why so? Because also want to run a DHCP server and disable the DHCP on your router, in case you want the goodies to be available on all devices on your network, such as your mobile phone / tablets. If so, add the following
 
-```bash
+{% highlight bash %}
 dhcp-range=192.168.1.50,192.168.1.150,12h
 dhcp-option=3,192.168.1.1
 dhcp-option=6,192.168.1.3
-```
+{% endhighlight %}
 
 This is it. Now on the VPS, you have to run another instance of dnsmasq, and here you only need to run it on port 10053, and point it to unlocator's DNS
 
-```bash
-
+{% highlight bash %}
 server=185.37.37.37 
 server=185.37.37.185
 port=10053
 listen-address=*.*.*.*
 no-dhcp-interface=*.*.*.*
 log-queries
-```
+{% endhighlight %}
 
 Adding the log queries at the end allows you to see if the DNS is really being used by chromecast.
 
