@@ -73,6 +73,42 @@ Here is the setup. Run a forwarding DNS server on an outside server, using a por
 
 ![Flow diagram](/img/dnshack.png)
 
-The ubercool forwarding DNS I used for the above setup is [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html). If you are interested in knowing about dnsmasq configuration, let me know in comments and I will update the post.
+The ubercool forwarding DNS I used for the above setup is [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html). ~~If you are interested in knowing about dnsmasq configuration, let me know in comments and I will update the post.~~
+
+**Update**
+
+Here's a bit about the dnsmasq config that should get you started.
+
+On the local Box, we run a dns server on port 53. You can start with a default config, and uncomment/update these lines
+
+```bash
+server=uuu.vvv.www.xxx#10053
+listen-address=127.0.0.1,192.168.1.3
+```
+Here - 192.168.1.3 is the fixed address I have assigned to the local Box. Why so? Because also want to run a DHCP server and disable the DHCP on your router, in case you want the goodies to be available on all devices on your network, such as your mobile phone / tablets. If so, add the following
+
+```bash
+dhcp-range=192.168.1.50,192.168.1.150,12h
+dhcp-option=3,192.168.1.1
+dhcp-option=6,192.168.1.3
+```
+
+This is it. Now on the VPS, you have to run another instance of dnsmasq, and here you only need to run it on port 10053, and point it to unlocator's DNS
+
+```bash
+
+server=185.37.37.37 
+server=185.37.37.185
+port=10053
+listen-address=*.*.*.*
+no-dhcp-interface=*.*.*.*
+log-queries
+```
+
+Adding the log queries at the end allows you to see if the DNS is really being used by chromecast.
+
+One more thing - I haven't tried this myself, but if chromecast will still not work, add an entry to your router to make traffic to 8.8.8.8 and 8.8.8.4 go via non existent routes. I have heard that chromecast will override local DNS settings from router and still try to connect to google's dns, but if they are unreachable (easy to achieve via a bad route on the router), it will fall back and use the DNS you want it to use.
+
+----- 
 
 Coming back to this setup, it's all rather inconvenient, because the circumvention requires 2 systems (your laptop for local dnsmasq and a remote box where you can run dnsmasq on a non standard port). My advice to unlocator would be to run an instance on non standard DNS port as well, for cases like these, and make it slightly easier for mass adoption. Then if your router was really open, you could run dnsmasq sort of thing on the router itself. Right now, I can't even get the spectranet provided wifi router to return a different DNS, but I guess I have work laid out for the coming weekends.
