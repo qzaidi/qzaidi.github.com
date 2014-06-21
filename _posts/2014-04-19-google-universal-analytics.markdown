@@ -13,7 +13,7 @@ Almost, that is. While its so very easy to use GA scripts on the client side, we
 - it slows down the page load. 
 - if you have too much data, you outgrow the free plan, and the next tier blows a $150K hole in your pocket, once a year.
 
-But with universal analytics, it becomes more attractive than ever, esp. for non-conventional use cases. When I say non-conventional, I think of [NY Times used twitter as their database.](http://open.blogs.nytimes.com/2011/06/15/using-twitter-as-your-database-2/)
+But with universal analytics, it becomes more attractive than ever, esp. for non-conventional use cases. By non-conventional, I mean [NY Times used twitter as their database.](http://open.blogs.nytimes.com/2011/06/15/using-twitter-as-your-database-2/) sort of thing.
 
 Server Side Analytics has none of those drawbacks. 
 
@@ -45,7 +45,7 @@ Our solution? Write the redirector ourselves, and use GA to track. Server side t
 
 Advantages - we track what we want, and we share with Google only what we want to share. We can track things like CPU spikes, database timings, exceptions, and just about anything and everything we want to track, in near real time.
 
-On to specifics. We use the [universal-analytics](https://github.com/jtillmann/universal-analytics) npm module, and here's some sample code.
+On to specifics. One could use the [universal-analytics](https://github.com/jtillmann/universal-analytics) npm module, and here's some sample code.
 
 First, inside the app.js
 
@@ -85,3 +85,32 @@ And finally, in the routes you want to track
 {% highlight javascript %}
 app.get('/mytracker',dosomething, donextthing, ga.pageview('Track Page'),render,handleError);
 {% endhighlight %}
+
+Even if you are not using node.js, here is a cool way to do this with nginx. Yes, I am talking of post\_action. 
+
+[post\_action](http://wiki.nginx.org/HttpCoreModule#post_action) is the last phase in nginx processing of a request. Its often used for things like Download Tracking, and here we use it for visit tracking.
+
+Here's a sample UA call.
+
+{% highlight html %}
+http://www.google-analytics.com/collect?dp=%2Fv1%2Fproducts%2F321312&dh=https%3A%2F%2Fcatalog.paytm.com&uip=8.8.8.8&dt=Testing%20Something&an=Android&av=4.1.2&v=1&tid=UA-36768858-3&cid=837e181c-4860-4728-8a9c-74e4c572e85c&t=pageview
+{% endhighlight %}
+
+Parameters like dp (path), dh, and uip are available fron nginx, so you could include a post\_action like this.
+
+{% highlight bash %}
+location / { 
+  proxy_pass backend;
+  post_action @log;
+}
+ 
+location @log {
+  internal;
+  proxy_pass http://www.google-analytics.com/collect?dp=$uri&dh=$host&tid=UA-Property&cid=$cookie_sessionid&uip=$http_x_forwarded_for&t=pageview
+}
+
+{% endhighlight %}
+
+
+
+
