@@ -20,12 +20,12 @@ I [ordered it off aliexpress](http://s.click.aliexpress.com/e/v3ny3bY7Q), and th
 The Data
 --------
 
-I started with a modest goal of 6000 steps. Miband is less accurate than google fit when it comes to tracking steps (as measured on my treadmill), but its ability to track sleep is awesome and a marked improvement over fitbit flex.
+I started with a modest goal of 6000 steps. Miband is less accurate than google fit when it comes to tracking steps (as measured on my treadmill), but its  to track sleep is awesome and a marked improvement over fitbit flex.
 
 ![sleep data](/img/sleep.png)
 
 I was able to [extract sleep and step data from the device](http://qzaidi.github.io/miband/mi_data.html), with a little help from the forums. If you see that data, you might notice that it didn't track sleep for two nights, and that was because I was sleeping in a moving train on those nights.
 
-On newer android lollypop devices, you can use the miband to unlock your phone, and you can also set it to vibrate when you recieve calls. Currently, ability tracking is very limited (it can't track swimming or treadmill running).
+On newer android lollypop devices, you can use the miband to unlock your phone, and you can also set it to vibrate when you recieve calls. Currently, activity tracking is very limited (it can't track swimming or treadmill running).
 
 There is more I intend to play with. For example, it would be awesome if I could make it vibrate programatically. Leaving that to some other post, its time to catch up on the 2 hours of sleep shortfall for today.
