@@ -81,3 +81,8 @@ Here's how to fetch a range of cells (C1 to D2) using jsonp and google query lan
 While Google Query Language is very powerful, its also very slow. Currently I use it only to select multiple verses or verse + translation, and use the JSON cell feed for displaying a single verse. 
 
 On the other hand, I am not aware of any kind of rate limiting imposed by either github or google, which makes these companies awesome for hosting this kind of API.
+
+## Upate
+On user request, I have added the ability to fetch a random verse. You can skip chapter or verse or both to get a random verse.
+
+<script src="/js/quran.js"></script>

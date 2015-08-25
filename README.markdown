@@ -1,3 +1,6 @@
+To run
+
+jekyll server --safe
 
 This is my personal blog at Github.
 
