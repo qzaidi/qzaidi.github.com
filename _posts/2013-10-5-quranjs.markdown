@@ -85,4 +85,8 @@ On the other hand, I am not aware of any kind of rate limiting imposed by either
 ## Upate
 On user request, I have added the ability to fetch a random verse. You can skip chapter or verse or both to get a random verse.
 
-<script src="/js/quran.js"></script>
+{% highlight html %}
+<script src="http://qzaidi.github.io/quran/js/quran.js"></script>
+{% endhighlight %}
+
+<script src="http://qzaidi.github.io/quran/js/quran.js"></script>
