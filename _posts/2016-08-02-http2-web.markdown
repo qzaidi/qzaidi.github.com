@@ -20,7 +20,7 @@ Technically, we would also be seeing an impact on bandwidth usage. Unfortunately
 
 A typical API could have as much as 30% of the total response in HTTP headers. In a quick test I ran, it wasn't atypical to find API calls were header size exceeded that of data. Some tests with [nghttp -s](nghttp2.org) revealed savings of around 30% on those requests. Even assuming as low as [80% compression ratio](https://github.com/http2jp/hpack-test-case/wiki/Compression-Ratio), we still save a significant amount. Heck, we have some servers that return 302 responses 99% of the time, and you can only imagine how great http/2 is for those servers. In other words, saving a paltry 100 bytes per request translates to 100 GB for every billion requests we serve. This bandwidth may not mean so much for us as we buy by the terrabytes, but it does mean a lot for our users who pay through their nose for the data packs.
 
-Besides the obvious saving in bandwidth, we do see a clear improvement in Server Connection time as recorded by Google Analytics, and this consistent across a set of properties. Our server connection times fell to 50% of its previous value.
+Besides the obvious saving in bandwidth, we do see a clear improvement in Server Connection time as recorded by Google Analytics, and this consistent across a set of properties. The *Server Connection Time* fell to 50% of its previous value.
 
 ![https://m.tokopedia.com](/img/srvconn.png "An awesome drop in latency")
 
