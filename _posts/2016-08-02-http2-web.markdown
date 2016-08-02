@@ -1,0 +1,26 @@
+---
+layout: post
+style: text
+title: The cyberspace future that's already here.
+---
+
+> The future is already here. It's just not very evenly distributed.
+>                                                   - William Gibson
+
+Almost 4 years ago, I wrote about upgrading urbantouch.com to SPDY. Back then, I claimed it was *only* 30-35% slower than https. This week, we walk the same path with the next protocol upgrade, aka http/2, is as fast as http, and in specially crafted tests, faster. That's quite an improvement on http/1.1.
+
+So here's the thing. While text based protocols are great for a [variety of reasons](http://www.catb.org/esr/writings/taoup/html/ch05s01.html), binary is in vouge again. Maybe because as mobile eats web, latencies over 3g networks are important as ever before. After all, people have been writing their own wire protcols, or at least been considering things like protocol buffers. Thanks to http/2, we don't need to take that dreaded route, and we could still be kids.
+
+So what impact does http/2 has. Well, so far, our rollout has only been partial, which means typically about 5-10% of requests have been moved to http/2. The CDNs we use are still slow to adopt to http/2, which is either indicative of an inefficient market (switching costs), or uninformed decision makers. So we aren't overall seeing a noticable impact on our page load times. What we do see however, is a very significant impact on some metrics such as server connection time. 
+
+Technically, we should also be seeing an impact on bandwidth usage. Unfortunately, our ELB didn't record the network usage, so I don't have numbers to share with you on how much of a bandwidth drop we did see. Yet, we could do some calculations.
+
+A typical API could have as much as 30% of the total response in HTTP headers. In a quick test I ran, it wasn't atypical to find API calls were header size exceeded that of data. Some tests with [nghttp -s](nghttp2.org) revealed savings of around 30% on those requests. Even assuming as low as [80% compression ratio](https://github.com/http2jp/hpack-test-case/wiki/Compression-Ratio), we still save a significant amount. Heck, we have some servers that return 302 responses 99% of the time, and you can only imagine how great http/2 is for those servers. In other words, saving a paltry 100 bytes per request translates to 100 GB for every billion requests we serve. This bandwidth may not mean so much for us as we buy by the terrabytes, but it does mean a lot for our users who pay through their nose for the data packs.
+
+Besides the obvious saving in bandwidth, we do see a clear improvement in Server Connection time as recorded by Google Analytics, and this consistent across a set of properties. Our server connection times fell to 50% of its previous value.
+
+![https://m.tokopedia.com](/img/srvconn.png "An awesome drop in latency")
+
+We use nginx, running on ubuntu 16.04 for http2 termination. We use consul for managing our upstreams vms, and luameter for upstream stats. This is an interesting setup, worthy of its own blog post someday. 
+
+Today, 9% of websites use HTTP. Almost 70% of browsers support it. Our tests show that 45% of traffic (Indonesia) on our mobile site are from browsers that support http2, Android Browser and UCWEB being the major exceptions. When we roll this out on desktop, this fraction would be much higher, and on Android, where we use okhttp, we can expect the same. The future is surely here, and we are living it. If you want to live it too, well, we are hiring @ Tokopedia, get in touch.
