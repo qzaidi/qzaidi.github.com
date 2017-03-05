@@ -1,0 +1,67 @@
+---
+layout: post
+style: text
+title: A Deep dive in go binaries
+---
+
+Once upon a time, I used to work on file formats, debuggers etc, and sometimes used to blog about them as well. 
+While many of them were permanently lost in the graveyard that is internet, [some survived](http://qasim.zaidi.me/2010/02/what-is-in-heap.html) 
+
+Off late, I got interested into thinking about ELF and go again. Once a priest, always a priest, huh?
+
+Well, the itch started because we use this tool called [gops](https://github.com/google/gops) from google. 
+Apart from other things, it can give you a stack trace of all your go-routines, which we find quite handy in debugging issues, esp the infamous [too many open files](https://github.com/golang/go/blob/045ad5bab812657a85707e480c29de9144881be1/src/net/http/server.go#L2665)
+
+So while all is well with this tool, currently it uses the presence of runtime.buildVersion in the symbol table, to identify if a program is golang.
+
+```
+nm <go-binary> | grep runtime.buildVersion
+0000000000a94d20 d runtime.buildVersion
+```
+
+The lowercase *d* after the address suggests that this is a local data section symbol. If you are curious enough, you can actually find out which go
+version was used to build the process, with a little help from objdump. (gobjdump for MacOS, installable via brew).
+
+First, we check out the contents of the data at this address indicated in the symbol table. 
+
+```
+gobjdump -s --start-addr 0xa94d20 --stop-addr 0xa94d24 <go-binary>
+<go-binary>:     file format mach-o-x86-64
+
+Contents of section .data:
+ a94d20 93507200                             .Pr.      
+```
+
+As expected, its the data segment, and the data stored is 93507200. Now since the ELF format storage is Least Significant Byte First (LSB),
+93507200 has to be actually read as 0x00725093. Let's fire up objdump again, and see what is stored.
+
+```
+gobjdump -s --start-addr 0x725093 --stop-addr 0x72509c <go-binary> 
+
+<go-binary>:     file format mach-o-x86-64
+
+Contents of section __TEXT.__rodata:
+ 725093 67 6f312e37 2e34676f                 go1.7.4go      
+```
+
+Which tells us that this binary was compiled using go 1.7.4 compiler
+
+Now this works pretty well, except for the fact that we use a standard debian build script which strips the binaries. (See man strip) 
+The process of stripping removes the symbol table, since  you don't need the symtab except for debugging. And hence, the above scheme breaks, and gops can't identify the binary correctly as a go binary.
+
+While we can comment out the strip during build, the size difference between a stripped binary and one that isn't is quite significant, so rather than fix all of our debian/rules script, I am thinking about 
+what other alternatives might exist.  And my current exploration is around running strings. 
+
+```
+strings -n 8 <go-binary> | grep runtime.interface
+*runtime.interfacetype
+runtime.interfacetype
+runtime.interfacetype
+*runtime.interfacetype
+runtime.interfacetype
+runtime.interfacetype
+*runtime.interfacetype
+```
+
+This is a developing story, and I will be updating the post as I play more with the ELF format and golang internals. Note that none of this matters, since gops still works, we have multiple other work-arounds (e.g, don't strip the binary), but then, this is why this post belongs here.
+
