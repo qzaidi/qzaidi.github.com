@@ -6,7 +6,7 @@ ga: UA-566085-5 #Google Analytics ID
 sitemap: W4pRGiRrfCiC6kbBYgPp11-rEAKpifXz1A71XOITnTc
 # END
 # CHOOSE YOUR PREFERENCE
-pygments:    true
+highlighter: rouge
 markdown:    maruku
 permalink:   pretty
 # END
