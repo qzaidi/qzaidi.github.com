@@ -14,7 +14,9 @@ Apart from other things, it can give you a stack trace of all your go-routines, 
 
 While mostly all is well with this tool, it uses the presence of runtime.buildVersion in the symbol table, to identify if a binary is actually a golang binary.
 
-![Go ](https://blog.golang.org/gopher/gopher.png) ![Elf](/img/elf.png)
+(did) Go build             | this ELF File ?
+:-------------------------:|:-------------------------:
+![Go](https://blog.golang.org/gopher/gopher.png)  |  ![Elf](/img/elf.png)
 
 ```
 nm <go-binary> | grep runtime.buildVersion
