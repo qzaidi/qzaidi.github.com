@@ -12,7 +12,9 @@ Well, the itch started because we use this tool called [gops](https://github.com
 
 Apart from other things, it can give you a stack trace of all your go-routines, which we find quite handy in debugging issues, esp the infamous [too many open files](https://github.com/golang/go/blob/045ad5bab812657a85707e480c29de9144881be1/src/net/http/server.go#L2665)
 
-While mostly all is well with this tool, it uses the presence of runtime.buildVersion in the symbol table, to identify if a program is golang.
+While mostly all is well with this tool, it uses the presence of runtime.buildVersion in the symbol table, to identify if a binary is actually a golang binary.
+
+![Go ](https://blog.golang.org/gopher/gopher.png) ![Elf](/img/elf.png)
 
 ```
 nm <go-binary> | grep runtime.buildVersion
