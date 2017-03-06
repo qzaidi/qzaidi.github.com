@@ -16,7 +16,7 @@ While mostly all is well with this tool, it uses the presence of runtime.buildVe
 
 (did) Go build             | this ELF File ?
 :-------------------------:|:-------------------------:
-![Go](https://blog.golang.org/gopher/gopher.png)  |  ![Elf](/img/elf.png)
+![Go](/img/gopher.png)     |  ![Elf](/img/elf.png)
 
 ```
 nm <go-binary> | grep runtime.buildVersion
