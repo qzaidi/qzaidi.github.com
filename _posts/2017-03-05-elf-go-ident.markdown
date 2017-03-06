@@ -4,7 +4,7 @@ style: text
 title: A deep dive in go binaries
 ---
 
-Once upon a time, my work involved binary file formats, debuggers and reverse engineering, and sometimes I would [blog about them]((http://qasim.zaidi.me/2010/02/what-is-in-heap.html)) as well.
+Once upon a time, my work involved binary file formats, debuggers and reverse engineering, and sometimes I would [blog about them](http://qasim.zaidi.me/2010/02/what-is-in-heap.html) as well.
 
 Off late, I have been thinking about ELF files again. Once a priest, always a priest, huh?
 
