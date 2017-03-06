@@ -132,6 +132,20 @@ String dump of section '.shstrtab':
   ```
 As you can see, a couple of things look very go specific, namely .gosymtab, .note.go.buildid
 
-This is a developing story, and I will be updating the post as I play more with the ELF files. 
+The note section is interesting, since its explicit purpose is
 
-Note that none of this matters, since gops still works, we have  other work-arounds (e.g, don't strip the binary), but then, random explorations is what this blog is all about. Hope you find it interesting.
+>> A vendor or system engineer might need to mark an object file with special information that other programs can check for conformance or compatibility. 
+
+So let's see what is stored in here (and this is from a binary that has been stripped)
+
+```
+readelf -n /usr/bin/<go-binary> 
+
+Displaying notes found at file offset 0x00000fac with length 0x00000038:
+  Owner                 Data size	Description
+  Go                   0x00000028	Unknown note type: (0x00000004)
+```
+
+That's it. Go compiler inserts a note in each binary, the note is not stripped, and maybe we can read this programatically to find out if its a go binary.
+
+PS: Note that none of this matters, since gops still works, we have  other work-arounds (e.g, don't strip the binary), but then, random explorations is what this blog is all about. Hope you find it interesting.
