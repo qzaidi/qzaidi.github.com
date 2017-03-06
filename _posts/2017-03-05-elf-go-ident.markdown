@@ -1,18 +1,18 @@
 ---
 layout: post
 style: text
-title: A Deep dive in go binaries
+title: A deep dive in go binaries
 ---
 
-Once upon a time, I used to work on file formats, debuggers etc, and sometimes used to blog about them as well. 
-While many of them were permanently lost in the graveyard that is internet, [some survived](http://qasim.zaidi.me/2010/02/what-is-in-heap.html) 
+Once upon a time, my work involved binary file formats, debuggers and reverse engineering, and sometimes I would [blog about them]((http://qasim.zaidi.me/2010/02/what-is-in-heap.html)) as well.
 
-Off late, I got interested into thinking about ELF and go again. Once a priest, always a priest, huh?
+Off late, I have been thinking about ELF files again. Once a priest, always a priest, huh?
 
 Well, the itch started because we use this tool called [gops](https://github.com/google/gops) from google. 
+
 Apart from other things, it can give you a stack trace of all your go-routines, which we find quite handy in debugging issues, esp the infamous [too many open files](https://github.com/golang/go/blob/045ad5bab812657a85707e480c29de9144881be1/src/net/http/server.go#L2665)
 
-So while all is well with this tool, currently it uses the presence of runtime.buildVersion in the symbol table, to identify if a program is golang.
+While mostly all is well with this tool, it uses the presence of runtime.buildVersion in the symbol table, to identify if a program is golang.
 
 ```
 nm <go-binary> | grep runtime.buildVersion
@@ -54,7 +54,7 @@ what other alternatives might exist.
 
 Some possible approaches
 
-===strings===
+*strings*
 
 ```
 strings -n 8 <go-binary> | grep runtime.interface
@@ -66,7 +66,8 @@ runtime.interfacetype
 runtime.interfacetype
 *runtime.interfacetype
 ```
-=== Readelf ===
+
+*Readelf*
 
 readelf is a bit more powerful than objdump. We can use it first to read the ELF header
 
