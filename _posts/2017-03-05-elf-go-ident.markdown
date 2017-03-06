@@ -50,7 +50,11 @@ Now this works pretty well, except for the fact that we use a standard debian bu
 The process of stripping removes the symbol table, since  you don't need the symtab except for debugging. And hence, the above scheme breaks, and gops can't identify the binary correctly as a go binary.
 
 While we can comment out the strip during build, the size difference between a stripped binary and one that isn't is quite significant, so rather than fix all of our debian/rules script, I am thinking about 
-what other alternatives might exist.  And my current exploration is around running strings. 
+what other alternatives might exist.  
+
+Some possible approaches
+
+===strings===
 
 ```
 strings -n 8 <go-binary> | grep runtime.interface
@@ -62,6 +66,67 @@ runtime.interfacetype
 runtime.interfacetype
 *runtime.interfacetype
 ```
+=== Readelf ===
 
-This is a developing story, and I will be updating the post as I play more with the ELF format and golang internals. Note that none of this matters, since gops still works, we have multiple other work-arounds (e.g, don't strip the binary), but then, this is why this post belongs here.
+readelf is a bit more powerful than objdump. We can use it first to read the ELF header
 
+```
+readelf -h /usr/bin/<go-binary>
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x45f800
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          6517168 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         10
+  Size of section headers:           64 (bytes)
+  Number of section headers:         26
+  Section header string table index: 25
+```
+
+Now let's see what is there in the *Section header string table*
+
+```
+readelf -p 25 /usr/bin/<go-binary>
+
+String dump of section '.shstrtab':
+  [     1]  .shstrtab
+  [     b]  .text
+  [    11]  .rodata
+  [    19]  .typelink
+  [    23]  .itablink
+  [    2d]  .gosymtab
+  [    37]  .gopclntab
+  [    42]  .dynsym
+  [    4a]  .rela
+  [    50]  .rela.plt
+  [    5a]  .gnu.version
+  [    67]  .gnu.version_r
+  [    76]  .hash
+  [    7c]  .dynstr
+  [    84]  .got.plt
+  [    8d]  .dynamic
+  [    96]  .got
+  [    9b]  .noptrdata
+  [    a6]  .data
+  [    ac]  .bss
+  [    b1]  .noptrbss
+  [    bb]  .tbss
+  [    c1]  .interp
+  [    c9]  .note.go.buildid
+  ```
+As you can see, a couple of things look very go specific, namely .gosymtab, .note.go.buildid
+
+This is a developing story, and I will be updating the post as I play more with the ELF files. 
+
+Note that none of this matters, since gops still works, we have  other work-arounds (e.g, don't strip the binary), but then, random explorations is what this blog is all about. Hope you find it interesting.
