@@ -148,4 +148,38 @@ Displaying notes found at file offset 0x00000fac with length 0x00000038:
 
 That's it. Go compiler inserts a note in each binary, the note is not stripped, and maybe we can read this programatically to find out if its a go binary.
 
+Here's the [relevant code in the go source](https://github.com/golang/go/blob/178307c3a72a9da3d731fecf354630761d6b246c/src/cmd/go/internal/buildid/note.go) that deals with that. And here's some code that shows how to read it programatically. 
+
+```
+package main
+
+import (
+  "os"
+  "fmt"
+  "log"
+  "debug/elf"
+)
+
+func main() {
+  bin, err := os.OpenFile(os.Args[0],os.O_RDONLY,0)
+  if err != nil {
+    log.Fatalln("can't open file",err)
+  }
+  f,err := elf.NewFile(bin)
+  if err != nil {
+    log.Fatalln("elf read error",err)
+  }
+  if sect := f.Section(".gosymtab"); sect != nil {
+    fmt.Println("found a .gosymtab")
+  }
+  if sect := f.Section(".note.go.buildid"); sect != nil {
+    fmt.Println("found note", sect.Name, sect.Type)
+    if d,err := sect.Data(); err == nil {
+      fmt.Println(string(d[:]))
+    }
+
+  }
+}
+```
+
 PS: Note that none of this matters, since gops still works, we have  other work-arounds (e.g, don't strip the binary), but then, random explorations is what this blog is all about. Hope you find it interesting.
