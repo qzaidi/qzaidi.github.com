@@ -21,7 +21,7 @@ The moment of epiphany was punctured by the real need of database for most dynam
 To be clear, what I wanted was an API like this
 
 {% highlight html %}
-<script chapter=15 verse=9 src="http://qzaidi.github.io/quran/js/quran.js">
+<script chapter=15 verse=9 src="//qzaidi.github.io/quran/js/quran.js">
 </script>
 {% endhighlight %}
 
@@ -29,19 +29,19 @@ To be clear, what I wanted was an API like this
 
 That when embedded, produces an output like this
 
-<script chapter="15" verse="9" src="http://qzaidi.github.io/quran/js/quran.js">
+<script chapter="15" verse="9" src="//qzaidi.github.io/quran/js/quran.js">
 </script>
 
 This became my weekend project, and if you saw some arabic text above, thats the proof it happened. This uses a combo of github + google spreadsheets, so as long as both of these products cease to exist, which is less probable than the likelihood of my VPS going down or me failing to pay their bill, it would be up. And the idea is generic enough for anyone to implement another viewer for the Hebrew Bible, Talmud or the Bhagvad Geeta. So that our discourses about religion are no longer discourses of the ignorant.
 
-<script chapter="31" verse="20" trans="#trans" src="http://qzaidi.github.io/quran/js/quran.js">
+<script chapter="31" verse="20" trans="#trans" src="//qzaidi.github.io/quran/js/quran.js">
 </script>
 <blockquote id="trans">
 </blockquote>
 
 ## Workings
 
-For more examples of how this works, please check out [Quran.js homepage](http://qzaidi.github.io/quran/javascript). 
+For more examples of how this works, please check out [Quran.js homepage](https://qzaidi.github.io/quran/javascript). 
 
 First, let's give credit where its due
 
@@ -82,11 +82,11 @@ While Google Query Language is very powerful, its also very slow. Currently I us
 
 On the other hand, I am not aware of any kind of rate limiting imposed by either github or google, which makes these companies awesome for hosting this kind of API.
 
-## Upate
+## Update
 On user request, I have added the ability to fetch a random verse. You can skip chapter or verse or both to get a random verse.
 
 {% highlight html %}
-<script src="http://qzaidi.github.io/quran/js/quran.js"></script>
+<script src="//qzaidi.github.io/quran/js/quran.js"></script>
 {% endhighlight %}
 
-<script src="http://qzaidi.github.io/quran/js/quran.js"></script>
+<script src="//qzaidi.github.io/quran/js/quran.js"></script>
