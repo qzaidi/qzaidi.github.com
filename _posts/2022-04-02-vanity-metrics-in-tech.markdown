@@ -10,9 +10,9 @@ I turned out to be exceptionally blessed in our batch. As employers started with
 
 As we transitioned to HSS, every other day there was news of layoffs happening, there was one at HSS itself, just a month post our joining. At these times, with the least amount of experience on team, I didn’t feel very secure. We also had a company wide pay cut. As I saw engineers from the most premium colleges struggling to find a  job, it was natural to worry about survival. So every month, I counted my months of experience, and felt happy as they kept on increasing.
 
-Now, months, or years of experience, as some would agree, is among the most vain of all vanity metrics, except if you are in the Government. The point is that even vanity metrics may not be vanity depending on the place / context. Survival has a value, esp in wartimes (or recession times or in bureaucracy), and years of experience can convey that value. [^2]
+Now, months, or years of experience, as some would agree, is among the most vain of all vanity metrics, except if you are in the Government. The point is that even vanity metrics may not be vanity depending on the place / context. Survival has a value, esp in wartimes (or recession times or in bureaucracy), and years of experience can convey that value. [^2] 
 
-This brings me to the central theme of this article. As Paytm stock atrophies [^3], I was asked  if I could clarify what do I mean by vanity metrics. So here I will look at vanity metrics, from both level of an engineer, to that of a team and a company. And like other MVPs, hopefully there would be a sequel too, for non vanity metrics too, if this one gets some traction.
+This brings me to the central theme of this article. As Paytm stock atrophies [^3] , I was asked  if I could clarify what do I mean by vanity metrics. So here I will look at vanity metrics, from both level of an engineer, to that of a team and a company. And like other MVPs, hopefully there would be a sequel too, for non vanity metrics too, if this one gets some traction.
 
 Hughes was a CMM Level 5 certified company. It brought with us hallowed auditors who would tell us in hushed voices what a sin it is to be not able to re-use code, and it had a couple of metrics around it as well. The ones that where prominently measured at Hughes were Lines of Code and Defect Density. Defect Density was measured as bugs (of a certain severity) measured by QA engineers divided by the Kilo Lines of Code, so for example with 12 major bugs and 8k lines of code, you will have a DD of 1.25. 
 
@@ -27,10 +27,10 @@ To be continued...
 ------------------------------------------------
 
 [^1]:
-Not surprisingly, I heard this from joyous civil engineering majors who for once felt happy that the comp sci guys will have a fate no different than theirs.
+ Not surprisingly, I heard this from joyous civil engineering majors who for once felt happy that the comp sci guys will have a fate no different than theirs.
 [^2]:
-As a matter of fact, most still consider years of experience as a useful metric for promotions and hirings.
+ As a matter of fact, most still consider years of experience as a useful metric for promotions and hirings.
 [^3]:
-I do not have a position, never had except in ESOPs which I couldn’t exercise. Looks fortunate in hindsight, and this can be a blog post in itself.
+ I do not have a position, never had except in ESOPs which I couldn’t exercise. Looks fortunate in hindsight, and this can be a blog post in itself.
 [^4]:
-An upheaval could also be an unsuccessful rewrite of an existing project, it doesn’t need to be macro like a recession.
+ An upheaval could also be an unsuccessful rewrite of an existing project, it doesn’t need to be macro like a recession.
