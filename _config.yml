@@ -7,7 +7,7 @@ sitemap: W4pRGiRrfCiC6kbBYgPp11-rEAKpifXz1A71XOITnTc
 # END
 # CHOOSE YOUR PREFERENCE
 highlighter: rouge
-markdown:    maruku
+markdown:    Kramdown
 permalink:   pretty
 # END
 exclude: LICENSE, README.markdown, Rakefile
