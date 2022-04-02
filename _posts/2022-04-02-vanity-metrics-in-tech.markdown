@@ -26,11 +26,7 @@ To be continued...
 
 ------------------------------------------------
 
-[^1]:
- Not surprisingly, I heard this from joyous civil engineering majors who for once felt happy that the comp sci guys will have a fate no different than theirs.
-[^2]:
- As a matter of fact, most still consider years of experience as a useful metric for promotions and hirings.
-[^3]:
- I do not have a position, never had except in ESOPs which I couldn’t exercise. Looks fortunate in hindsight, and this can be a blog post in itself.
-[^4]:
- An upheaval could also be an unsuccessful rewrite of an existing project, it doesn’t need to be macro like a recession.
+[^1]: Not surprisingly, I heard this from joyous civil engineering majors who for once felt happy that the comp sci guys will have a fate no different than theirs.
+[^2]: As a matter of fact, most still consider years of experience as a useful metric for promotions and hirings.
+[^3]: I do not have a position, never had except in ESOPs which I couldn’t exercise. Looks fortunate in hindsight, and this can be a blog post in itself.
+[^4]: An upheaval could also be an unsuccessful rewrite of an existing project, it doesn’t need to be macro like a recession.
