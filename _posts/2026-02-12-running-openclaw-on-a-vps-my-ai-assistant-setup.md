@@ -3,12 +3,13 @@ layout: post
 title: "My AI Assistant Setup"
 date: 2026-02-12
 tags: [AI, OpenClaw, VPS, Productivity]
-header-img: /img/ai-assist.png
 ---
 
 I've been running an AI assistant called OpenClaw for the last couple of weeks. It's show the promise to  potentially transform how I work. I have used a human Executive Assistant before, and they have a lot of context + authority to make a difference to your productivity, and I believe openclaw has the potential to come close.
 
 Here's my setup and why I think this is the future.
+![](/img/ai-assist.png "The future that's already here")
+
 
 ## The Setup
 
