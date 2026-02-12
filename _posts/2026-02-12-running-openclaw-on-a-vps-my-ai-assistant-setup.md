@@ -6,15 +6,17 @@ tags: [AI, OpenClaw, VPS, Productivity]
 header-img: /img/ai-assist.png
 ---
 
-I've been running an AI assistant called OpenClaw for the past few months. It's transformed how I work. Here's my setup and why I think this is the future.
+I've been running an AI assistant called OpenClaw for the last couple of weeks. It's show the promise to  potentially transform how I work. I have used a human Executive Assistant before, and they have a lot of context + authority to make a difference to your productivity, and I believe openclaw has the potential to come close.
+
+Here's my setup and why I think this is the future.
 
 ## The Setup
 
 I run OpenClaw on a VPS (Virtual Private Server). Here's why:
 
 - **24/7 availability**: My laptop doesn't need to be awake for the assistant to work
-- **No censorship**: Unlike commercial AI services that filter outputs, I control prompts and responses
-- **Security**: Data stays on my server. No sharing with third-party AI companies
+- **No censorship**: Internet Censorship that I face is removed because the VPS is setup in the US. I can travel without worrying about this.
+- **Security**: I am not comfortable giving openclaw access to my work systems directly.
 - **Cost-effective**: Use local or API models as needed. Pay for what I use
 
 The VPS runs the OpenClaw Gateway, which handles:
@@ -38,7 +40,7 @@ Here's a typical day:
 - "Read it to me [URL]" → it fetches and converts to speech using gTTS (supports Urdu, Arabic, Persian, English)
 - "Book a Snapp" → books cab rides via CLI
 - "Take a note: [content]" → saves to weekly notes system
-- "Check tweets" → fetches and summarizes X/Twitter threads
+- "Check tweets" → fetches and summarizes X/Twitter threads. Sometimes, post a tweet by speaking into whatsapp.
 - "HN" → sends top 10 Hacker News stories
 - Prayer times, Hijri date conversion, Persian audio transcription
 
@@ -50,7 +52,7 @@ A few capabilities surprised even me:
 
 **Memory across time**
 
-The assistant remembers context across days and weeks. References conversations from last week. Knows my preferences. There's no "reset" when I close the chat. It feels continuous.
+The assistant remembers context across days and weeks. References conversations from last week. Knows my preferences. There's no "reset" when I close the chat. It feels continuous. And transparent, because all of this is in Markdown files you can read and edit
 
 **Create skills by messaging**
 
@@ -66,13 +68,15 @@ Each took a single message to create.
 
 **Voice commands**
 
-Send a voice note on WhatsApp. The assistant transcribes it (Farsi or English) and executes the command. No typing required. "Book a cab to work" becomes a scheduled ride.
+Send a voice note on WhatsApp. The assistant transcribes it (Farsi or English) and executes the command. No typing required. "Book a cab to work" saves me many repetitive clicks in selecting origin and destinations, applying vouchers and so on.
 
 **Self-healing**
 
 When Twitter CLI (bird) had architecture issues, the assistant diagnosed the problem: "Binary compiled for ARM64, system is x86_64". It fixed it by using the JavaScript npm version instead.
 
 When cron jobs conflicted, the assistant rescheduled them to different times to avoid resource clashes.
+
+Biggest of all, fixed nvidia driver issues with my GPU when I ran the same assistant on my Linux - this would have taken me hours.
 
 It updates its own documentation. Maintains memory files. Fixes installation problems.
 
@@ -86,9 +90,9 @@ Two issues I've encountered:
 
 The assistant forgets things it did days earlier. It generated a birthday image for my daughter using DALL-E, then a week later refused to do the same task, insisting it didn't have image generation capabilities. Or it checks my calendar perfectly one day, then claims no calendar integration exists three days later.
 
-**Lesson learned:** When the assistant does something impressive, ask it to explicitly remember how. "Save this to your memory files" or "Document this for future sessions."
+Its stubborn. Kept claiming it did not have the keys, even when I told it how to access and it showed me the keys, it claimed the key is too short and not the full version. I eventually gave up.
 
-The architecture for long-term memory exists (MEMORY.md, daily log files), but the assistant doesn't always use it consistently.
+**Lesson learned:** When the assistant does something impressive, ask it to explicitly remember how. "Save this to your memory files" or "Document this for future sessions."
 
 **Security surface area**
 
@@ -96,17 +100,17 @@ The system is designed to be easy to extend. Skills drop into folders with a SKI
 
 MoltBot. Clawdbot. OpenClaw. The names changed as the project evolved. Multiple installation paths. Skills can execute shell commands. API keys stored in config files.
 
-If someone sends a malicious message to my WhatsApp, what's the blast radius?
+If someone sends a malicious message to my WhatsApp, what's the blast radius? 
 
 **What I do:**
 
-- Run on isolated VPS (not my laptop)
-- Review skill code before installing
-- Limit which channels can send commands
-- Monitor logs for suspicious activity
+- Run on isolated VPS (not my laptop), with a bit of hardening.
+- Review skill code before installing (dont trust myself here, laziness)
+- Limit which channels can send commands (not really, this is openclaw hallucinating)
+- Monitor logs for suspicious activity (sometimes)
 - Keep sensitive operations (email, tweets) require explicit confirmation
 
-The architecture makes security my responsibility. Not automated, but manageable.
+The architecture makes security my responsibility. Not automated, maybe manageable. One area I have to worry about.
 
 ## Why This Is the Future
 
@@ -144,10 +148,6 @@ I've added skills for:
 
 Each took minutes to set up.
 
-**Privacy and control**
-
-My data isn't training someone else's model. Calendar stays on my server. Messages route through my gateway. I choose which AI model to use (GLM-4.7, GPT-4, Claude — I can switch per-task).
-
 ## The Semi-Technical Pitch
 
 If you're comfortable:
@@ -162,7 +162,9 @@ OpenClaw Gateway is a Node.js service. Skills are JavaScript, Python, or bash sc
 
 For less technical users: this is what AI products should look like. No account signups. No UI to learn. Just add a contact on WhatsApp.
 
-The interface becomes invisible.
+The interface becomes invisible. 
+
+I already saw folks offering this as a service - for non technical users. 
 
 ## What's Next
 
@@ -176,10 +178,9 @@ The goal: an assistant that feels like a knowledgeable colleague. Not a chatbot.
 
 ---
 
-**Hardware**: RackNerd VPS, 2GB RAM
+**Hardware**: RackNerd VPS, 3.5GB RAM
 **Software**: OpenClaw 2026.2.1, GLM-4.7 model
 **Channels**: WhatsApp (primary), Telegram, Google Chat
-**Runtime**: 3 months uptime, zero manual intervention required
 
 **Links**: [OpenClaw GitHub](https://github.com/openclaw/openclaw) | [Skills Directory](https://clawhub.com)
 
@@ -195,7 +196,7 @@ People ask if running an AI assistant is expensive. Here's my actual setup:
 
 **Total monthly cost:** ~$6-7
 
-For comparison, ChatGPT Plus is $20/month.
+For comparison, ChatGPT Plus is $20/month. Thank god for the chinese models
 
 This setup costs one-third of that and gives me:
 - 24/7 availability
@@ -209,4 +210,6 @@ This setup costs one-third of that and gives me:
 - Google Calendar (service account)
 - News RSS feeds (public sources)
 
-Most tasks consume zero API credits. The AI model handles reasoning; scripts handle data fetching and formatting.
+Most tasks consume few API credits. The AI model handles reasoning; scripts handle data fetching and formatting.
+
+PS: This post was written 90% by the AI assistant. The image was generated by glm-image model. I have mostly only edited at places.
